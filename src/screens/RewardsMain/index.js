@@ -345,7 +345,7 @@ export default function RewardsMain({navigation}) {
                           7 day streak of coffee purchase
                         </Text>
                       </View>
-                      <ProgressCircle
+                      {/* <ProgressCircle
                         percent={50}
                         radius={30}
                         borderWidth={8}
@@ -353,7 +353,19 @@ export default function RewardsMain({navigation}) {
                         shadowColor="#60B0AA22"
                         bgColor="#fff">
                         <Text style={styles.ProgressCircleText}>{'50%'}</Text>
-                      </ProgressCircle>
+                      </ProgressCircle> */}
+                      <AnimatedCircularProgress
+                        size={54}
+                        width={7}
+                        fill={50}
+                        rotation={0}
+                        lineCap="round"
+                        tintColor="#60B0AA"
+                        backgroundColor="#60B0AA33">
+                        {fill => (
+                          <Text style={styles.ProgressCircleText}>{fill}%</Text>
+                        )}
+                      </AnimatedCircularProgress>
                     </View>
 
                     <View style={styles.membershipCardContainer}>

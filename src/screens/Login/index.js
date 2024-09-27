@@ -26,8 +26,8 @@ import {
 } from './../../services/config/NotificationService/index';
 import role, {selectRole, setRole} from '../../store/role';
 import {useFocusEffect} from '@react-navigation/native';
-// import {GoogleSignin} from '@react-native-google-signin/google-signin';
-// import auth from '@react-native-firebase/auth';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import auth from '@react-native-firebase/auth';
 
 export default function Login({navigation}) {
   const dispatch = useDispatch();
@@ -147,28 +147,34 @@ export default function Login({navigation}) {
     }
   };
 
-  // useEffect(() => {
-  //   GoogleSignin.configure({
-  //     webClientId:
-  //       '515132883013-b200o0vkotfhf2pdo3tq9f6uegv42gcu.apps.googleusercontent.com',
-  //   });
-  // }, []);
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId:
+        '1039648906853-c6chdgq2lo314sq2sl7hbe4albtckv52.apps.googleusercontent.com',
+    });
+  }, []);
 
-  // async function onGoogleButtonPress() {
-  //   try {
-  //     await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
-  //     const {idToken, user} = await GoogleSignin.signIn();
-  //     console.log(idToken, user);
+  async function onGoogleButtonPress() {
+    try {
+      await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
+      // const {idToken, user} = await GoogleSignin.signIn();
+      // console.log(idToken, user);
+      const res = await GoogleSignin.signIn();
+      console.log(res?.data?.idToken, res?.data?.user);
 
-  //     // Create a Google credential with the token
-  //     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+      // Create a Google credential with the token
+      const googleCredential = auth.GoogleAuthProvider.credential(
+        res?.data?.idToken,
+      );
 
-  //     // Sign-in the user with the credential
-  //     return auth().signInWithCredential(googleCredential);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+      console.log(googleCredential);
+
+      // Sign-in the user with the credential
+      return auth().signInWithCredential(googleCredential);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <SafeAreaView>
@@ -248,7 +254,7 @@ export default function Login({navigation}) {
         </View>
         <TouchableOpacity
           onPress={() => {
-            // onGoogleButtonPress();
+            onGoogleButtonPress();
           }}>
           <View style={styles.linkView}>
             <Image source={images.googleIcon} style={styles.btnImg} />

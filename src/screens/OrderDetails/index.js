@@ -57,8 +57,8 @@ export default function OrderDetails({navigation, route}) {
     if (pickupTime === 'Standard') {
       const diffInMs = Math.abs(currentDateTime - givenDateTime);
       const diffInMinutes = Math.floor(diffInMs / 1000 / 60);
-      console.log(diffInMinutes <= 300);
-      return diffInMinutes <= 400;
+      console.log('standard', diffInMinutes <= 5, diffInMinutes);
+      return diffInMinutes <= 5;
     } else {
       // If pickupTime is not "Standard", parse the pickup time
       const pickupDateTime = parsePickupTime(pickupTime);
@@ -68,8 +68,8 @@ export default function OrderDetails({navigation, route}) {
       const diffInMinutes = Math.floor(diffInMs / 1000 / 60);
 
       // If the difference is less than 10 minutes, cancel is false, else true
-      console.log(diffInMinutes >= 10);
-      return diffInMinutes >= 10;
+      console.log('scheduled', diffInMinutes >= 15, diffInMinutes);
+      return diffInMinutes >= 15;
     }
   };
 
@@ -195,7 +195,10 @@ export default function OrderDetails({navigation, route}) {
         console.log(res.data.success, 'trruuuuuuuuuuuuuuu');
         console.log(res.data.message, 'trruuuuuuuuuuuuuuu');
         dispatch(setUserData(res?.data?.userData));
-        setDeleteModal(true);
+        setConfirmModal(false);
+        setTimeout(() => {
+          setDeleteModal(true);
+        }, 500);
         setLoader(false);
         setErrorMsg('');
       } else {
@@ -218,7 +221,7 @@ export default function OrderDetails({navigation, route}) {
   //   console.log('-=-=-=-=', data);
   //   // }
   // }, [orderId]);
-
+  console.log(cancel);
   return (
     <SafeAreaView>
       <View style={styles.mainContainer}>

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1039648906853",
+    "project_id": "cuppa-dc705",
+    "storage_bucket": "cuppa-dc705.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1039648906853:android:6ffef39b042a32b86a308c",
+        "android_client_info": {
+          "package_name": "com.cuppa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1039648906853-1qih9st77iue2sut0df3mo9k6fqdu71b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cuppa",
+            "certificate_hash": "ecc64ec2a596f33fb42855208f08b5a17e98a8af"
+          }
+        },
+        {
+          "client_id": "1039648906853-c6chdgq2lo314sq2sl7hbe4albtckv52.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1sqyeuVQ-InYG5heqnhvqyUDEkUx7VfU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1039648906853-c6chdgq2lo314sq2sl7hbe4albtckv52.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
