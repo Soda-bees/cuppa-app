@@ -557,3 +557,17 @@ export const giveUserReward = async (token, body) => {
     return error;
   }
 };
+
+export const loginWithGoogle = async body => {
+  try {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    const response = await axiosInstance.post('auth/loginWithGoogle', body, {
+      headers,
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};

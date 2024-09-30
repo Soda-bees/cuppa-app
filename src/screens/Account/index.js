@@ -86,15 +86,17 @@ export default function Account({navigation}) {
           <Image style={styles.icon} source={images.notificationIcon} />
           <Text style={styles.subHeading}>Notifications</Text>
         </TouchableOpacity> */}
+        {!user?.loginWithGoogle ? (
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('ChangePassword');
+            }}
+            style={styles.navigateBtns}>
+            <Image style={styles.icon} source={images.securityIcon} />
+            <Text style={styles.subHeading}>Security</Text>
+          </TouchableOpacity>
+        ) : null}
 
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('ChangePassword');
-          }}
-          style={styles.navigateBtns}>
-          <Image style={styles.icon} source={images.securityIcon} />
-          <Text style={styles.subHeading}>Security</Text>
-        </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('Privacy');

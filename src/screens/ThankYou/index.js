@@ -8,7 +8,7 @@ import images from '../../services/utilities/images';
 import Header from '../../components/Header';
 import BottomBtnUser from '../../components/BottomBtnUser';
 import {colors, sizes} from '../../services';
-import {signUp} from '../../services/config/API';
+import {loginWithGoogle, signUp} from '../../services/config/API';
 import BottomBtnLoader from '../../components/BottomBtnLoader';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectAuthToken, setAuthToken} from '../../store/authSlice';
@@ -40,27 +40,51 @@ export default function ThankYou({navigation, route}) {
   const handleSignUp = async () => {
     setLoader(true);
     try {
-      const body = {
-        userName: userData.userName,
-        email: userData.email,
-        countryCode: userData.countryCode,
-        phoneNumber: userData.phoneNumber,
-        password: userData.password,
-        userSurvey: userData.userSurvey,
-        profile: userData.profile,
-        deviceToken,
-      };
+      if (!userData?.loginWithGoogle) {
+        const body = {
+          userName: userData.userName,
+          email: userData.email,
+          countryCode: userData.countryCode,
+          phoneNumber: userData.phoneNumber,
+          password: userData.password,
+          userSurvey: userData.userSurvey,
+          profile: userData.profile,
+          deviceToken,
+        };
 
-      const response = await signUp(body);
-      console.log(JSON.stringify(response));
-      if (response.data.success) {
-        const token = response?.data?.token;
+        const response = await signUp(body);
+        console.log(JSON.stringify(response));
+        if (response?.data?.success) {
+          const token = response?.data?.token;
 
-        dispatch(setAuthToken(token));
-        setLoader(false);
+          dispatch(setAuthToken(token));
+          setLoader(false);
+        } else {
+          console.log(response?.data?.message);
+          setLoader(false);
+        }
       } else {
-        console.log(response?.data?.message);
-        setLoader(false);
+        const body = {
+          userName: userData?.userName,
+          email: userData?.email,
+          userSurvey: userData?.userSurvey,
+          profile: userData?.profile,
+          loginWithGoogle: userData?.loginWithGoogle,
+          deviceToken,
+        };
+
+        console.log(body);
+
+        const response = await loginWithGoogle(body);
+        console.log('GOOGLEEEEEEE', JSON.stringify(response));
+        if (response?.data?.success) {
+          const token = response?.data?.token;
+          dispatch(setAuthToken(token));
+          setLoader(false);
+        } else {
+          console.log(response?.data?.message);
+          setLoader(false);
+        }
       }
     } catch (error) {
       console.log(error);

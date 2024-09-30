@@ -79,26 +79,27 @@ export const styles = StyleSheet.create({
   linkView: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     width: sizes.screenWidth * 0.9,
-    paddingVertical: sizes.screenHeight * 0.01,
+    paddingVertical: 10,
     borderRadius: sizes.screenWidth * 0.03,
     marginVertical: sizes.screenHeight * 0.01,
     borderWidth: 1.1,
     borderColor: colors.disabledBg,
+    paddingHorizontal: sizes.screenWidth * 0.04,
   },
 
   btnImg: {
     resizeMode: 'contain',
     height: sizes.screenWidth * 0.07,
     width: sizes.screenWidth * 0.07,
-    marginLeft: sizes.screenWidth * 0.04,
   },
   linkText: {
     fontFamily: 'Satoshi-Medium',
     color: colors.black,
     fontSize: fontSize.medium,
     textAlign: 'center',
-    width: sizes.screenWidth * 0.75,
+    maxWidth: sizes.screenWidth * 0.65,
   },
   bottomSignupView: {
     flexDirection: 'row',

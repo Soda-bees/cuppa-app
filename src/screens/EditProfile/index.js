@@ -224,7 +224,7 @@ export default function EditProfile({navigation}) {
           <PhoneInput
             ref={phoneInput}
             defaultValue={value}
-            defaultCode={user.countryCode}
+            defaultCode={user?.countryCode !== '' ? user?.countryCode : 'US'}
             layout="first"
             withShadow={false}
             autoFocus={false}

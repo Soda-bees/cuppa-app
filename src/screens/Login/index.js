@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
+  ActivityIndicator,
   Image,
   PermissionsAndroid,
   Platform,
@@ -13,10 +14,10 @@ import {TextInput} from 'react-native';
 import images from '../../services/utilities/images';
 import Header from '../../components/Header';
 import BottomBtnUser from '../../components/BottomBtnUser';
-import {colors} from '../../services';
+import {colors, sizes} from '../../services';
 import Feather from 'react-native-vector-icons/Feather';
 import {useDispatch, useSelector} from 'react-redux';
-import {signIn} from '../../services/config/API';
+import {loginWithGoogle, signIn} from '../../services/config/API';
 import {setAuthToken} from '../../store/authSlice';
 import BottomBtnLoader from '../../components/BottomBtnLoader';
 import messaging from '@react-native-firebase/messaging';
@@ -40,7 +41,10 @@ export default function Login({navigation}) {
   const [email, setEmail] = useState('');
   const [hidePass, setHidePass] = useState(true);
   const [loader, setLoader] = useState(false);
+  const [loader2, setLoader2] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [errorMsg2, setErrorMsg2] = useState('');
+
   const [deviceToken, setDeviceToken] = useState(null);
 
   const getFcmToken = async () => {
@@ -156,23 +160,63 @@ export default function Login({navigation}) {
 
   async function onGoogleButtonPress() {
     try {
+      await GoogleSignin.signOut();
       await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
-      // const {idToken, user} = await GoogleSignin.signIn();
-      // console.log(idToken, user);
       const res = await GoogleSignin.signIn();
+      setLoader2(true);
       console.log(res?.data?.idToken, res?.data?.user);
-
-      // Create a Google credential with the token
-      const googleCredential = auth.GoogleAuthProvider.credential(
-        res?.data?.idToken,
+      console.log(
+        res?.data?.user?.name,
+        res?.data?.user?.email,
+        res?.data?.user?.photo,
       );
 
-      console.log(googleCredential);
+      if (res?.data?.user) {
+        const body = {
+          userName: res?.data?.user?.name,
+          email: res?.data?.user?.email,
+          profile: res?.data?.user?.photo,
+          loginWithGoogle: true,
+        };
+        const response = await loginWithGoogle(body);
+        if (!response?.data?.success && response?.data?.signUp) {
+          console.log(response?.data?.userData);
+          setLoader2(false);
+          navigation.navigate('CustomerPersonality', {
+            isUser: true,
+            userData: response?.data?.userData,
+          });
+        } else if (response?.data?.success) {
+          console.log(response?.data?.token);
+          setLoader2(false);
+          dispatch(setAuthToken(response?.data?.token));
+        } else {
+          console.log(response?.data?.message);
+          setLoader2(false);
+          setErrorMsg2(response?.data?.message);
+        }
+      }
+
+      // Create a Google credential with the token
+      // const googleCredential = auth.GoogleAuthProvider.credential(
+      //   res?.data?.idToken,
+      // );
 
       // Sign-in the user with the credential
-      return auth().signInWithCredential(googleCredential);
+      // return auth().signInWithCredential(googleCredential);
+      setLoader2(false);
     } catch (error) {
-      console.log(error);
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        setErrorMsg2('Google sign-in was cancelled.');
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        setErrorMsg2('Google sign-in is already in progress.');
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        setErrorMsg2('Google Play services are not available.');
+      } else {
+        setErrorMsg2('An error occurred during Google sign-in.');
+      }
+      console.error(error);
+      setLoader2(false);
     }
   }
 
@@ -254,19 +298,30 @@ export default function Login({navigation}) {
         </View>
         <TouchableOpacity
           onPress={() => {
-            onGoogleButtonPress();
+            if (!loader2) {
+              onGoogleButtonPress();
+            }
           }}>
           <View style={styles.linkView}>
-            <Image source={images.googleIcon} style={styles.btnImg} />
+            {loader2 ? (
+              <ActivityIndicator
+                size={sizes.screenWidth * 0.07}
+                color={colors.tealMix}
+              />
+            ) : (
+              <Image source={images.googleIcon} style={styles.btnImg} />
+            )}
             <Text style={styles.linkText}>Continue with Google</Text>
+            <View style={{width: sizes.screenWidth * 0.07}}></View>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <Text style={styles.errMsg}>{errorMsg2}</Text>
+        {/* <TouchableOpacity>
           <View style={styles.linkView}>
             <Image source={images.facebookIcon} style={styles.btnImg} />
             <Text style={styles.linkText}>Continue with Facebook</Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <View style={styles.bottomSignupView}>
           <Text style={styles.textNormal}>Want to scan QR Code? </Text>
           <TouchableOpacity
