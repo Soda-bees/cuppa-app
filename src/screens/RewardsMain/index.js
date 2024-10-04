@@ -525,6 +525,7 @@ export default function RewardsMain({navigation}) {
             style={styles.modalContainer}
             activeOpacity={1}
             onPress={() => setUnsubModal(false)}>
+            <View style={styles.modalBottomBodyContainer}>
             <View style={styles.modalBottomBody}>
               <View style={styles.toggleRow2}>
                 <Text style={styles.modalBottomHeading2}>
@@ -571,6 +572,7 @@ export default function RewardsMain({navigation}) {
                   />
                 </View>
               )}
+            </View>
             </View>
           </TouchableOpacity>
         </Modal>

@@ -93,7 +93,8 @@ export const styles = StyleSheet.create({
     fontFamily: 'Satoshi-Medium',
     fontSize: fontSize.smallM,
     color: colors.black,
-    maxWidth: sizes.screenWidth * 0.86,
+    maxWidth: sizes.screenWidth * 0.84,
+    marginLeft: sizes.screenWidth*0.02
   },
 
   bottomBtnContainer: {

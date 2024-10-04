@@ -92,12 +92,19 @@ export default function Signup({navigation}) {
 
   const getFcmToken = async () => {
     try {
+      // Register the device for remote messages (iOS only)
+      if (Platform.OS === 'ios') {
+        await messaging().registerDeviceForRemoteMessages();
+        await messaging().setAutoInitEnabled(true);
+      }
+
+      // Get the FCM token
       const token = await messaging().getToken();
-      console.log('Notification token Signup=', token);
       setDeviceToken(token);
+      console.log('Notification token Login=', token);
       return token;
     } catch (error) {
-      console.log('Error in generating Signup:', error);
+      console.log('Error in generating token:', error);
     }
   };
 

@@ -116,7 +116,12 @@ export default function Rewards({navigation}) {
           onBackButtonPress={() => setShowModal(false)}
           onBackdropPress={() => setShowModal(false)}
           backdropOpacity={0.5}>
-          <View style={styles.modalContainer}>
+          <TouchableOpacity 
+          activeOpacity={1} 
+          onPress={() => setShowModal(false)}
+          style={styles.modalContainer}>
+            <View style={styles.modalBodyContainer}>
+
             <View style={styles.modalBottomBody}>
               <View style={styles.modalBottomTextBody}>
                 <Text style={styles.modalTextBold}>
@@ -143,7 +148,8 @@ export default function Rewards({navigation}) {
                 />
               </View>
             </View>
-          </View>
+            </View>
+          </TouchableOpacity>
         </Modal>
       </View>
     </SafeAreaView>

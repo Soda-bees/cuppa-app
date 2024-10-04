@@ -463,14 +463,19 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 
-  modalBottomBody: {
-    width: sizes.screenWidth,
-    paddingTop: sizes.screenWidth * 0.05,
-    backgroundColor: colors.white,
+  modalBottomBodyContainer:{
     position: 'absolute',
     bottom: 0,
     borderTopLeftRadius: sizes.screenHeight * 0.03,
     borderTopRightRadius: sizes.screenHeight * 0.03,
+    backgroundColor: colors.white,
+    overflow: 'hidden'
+  },
+
+  modalBottomBody: {
+    width: sizes.screenWidth,
+    backgroundColor: colors.white,
+    paddingTop: sizes.screenWidth * 0.05,
     paddingTop: sizes.screenHeight * 0.03,
     paddingBottom: sizes.screenHeight * 0.13,
     alignItems: 'center',

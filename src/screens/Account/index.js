@@ -114,12 +114,15 @@ export default function Account({navigation}) {
           <Image style={styles.icon} source={images.logoutIcon} />
           <Text style={styles.subHeading}>Logout</Text>
         </TouchableOpacity>
+      </View>
         <Modal
           isVisible={showModal}
           onBackButtonPress={() => setShowModal(false)}
           onBackdropPress={() => setShowModal(false)}
           backdropOpacity={0.5}>
           <View style={styles.modalContainer}>
+            <View style={styles.modalBodyContainer} >
+
             <View style={styles.modalBody}>
               <Text style={styles.modalHeading}>Logging Out?</Text>
               <Text style={styles.modalText}>
@@ -148,9 +151,10 @@ export default function Account({navigation}) {
                 </TouchableOpacity>
               </View>
             </View>
+            </View>
+
           </View>
         </Modal>
-      </View>
     </SafeAreaView>
   );
 }

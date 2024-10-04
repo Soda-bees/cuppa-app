@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1039648906853-334ugvr77m8940bob0spm17rn4uqfqtg.apps.googleusercontent.com</string>
+	<string>1039648906853-u89kdge1dln1pu8l7gir8tfc7n7gglks.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1039648906853-334ugvr77m8940bob0spm17rn4uqfqtg</string>
+	<string>com.googleusercontent.apps.1039648906853-u89kdge1dln1pu8l7gir8tfc7n7gglks</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>1039648906853-1qih9st77iue2sut0df3mo9k6fqdu71b.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>org.reactjs.native.example.Cuppa</string>
+	<string>org.react.native.CuppaNew</string>
 	<key>PROJECT_ID</key>
 	<string>cuppa-dc705</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1039648906853:ios:abd71f3fbf1ff9cd6a308c</string>
+	<string>1:1039648906853:ios:98f75fc3229f98cf6a308c</string>
 </dict>
 </plist>

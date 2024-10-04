@@ -37,6 +37,13 @@ export default function AdminScanQr({navigation}) {
 
   const getFcmToken = async () => {
     try {
+      // Register the device for remote messages (iOS only)
+      if (Platform.OS === 'ios') {
+        await messaging().registerDeviceForRemoteMessages();
+        await messaging().setAutoInitEnabled(true);
+      }
+
+      // Get the FCM token
       const token = await messaging().getToken();
       setDeviceToken(token);
       console.log('Notification token Login=', token);

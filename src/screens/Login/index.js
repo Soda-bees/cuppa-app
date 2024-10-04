@@ -49,6 +49,13 @@ export default function Login({navigation}) {
 
   const getFcmToken = async () => {
     try {
+      // Register the device for remote messages (iOS only)
+      if (Platform.OS === 'ios') {
+        await messaging().registerDeviceForRemoteMessages();
+        await messaging().setAutoInitEnabled(true);
+      }
+
+      // Get the FCM token
       const token = await messaging().getToken();
       setDeviceToken(token);
       console.log('Notification token Login=', token);
@@ -177,6 +184,7 @@ export default function Login({navigation}) {
           email: res?.data?.user?.email,
           profile: res?.data?.user?.photo,
           loginWithGoogle: true,
+          deviceToken: deviceToken
         };
         const response = await loginWithGoogle(body);
         if (!response?.data?.success && response?.data?.signUp) {

@@ -378,16 +378,22 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 
-  modalBottomBody: {
-    width: sizes.screenWidth,
-    alignItems: 'center',
+  modalBottomBodyContainer:{
     backgroundColor: colors.white,
     position: 'absolute',
     bottom: 0,
     borderTopLeftRadius: sizes.screenHeight * 0.03,
     borderTopRightRadius: sizes.screenHeight * 0.03,
+    overflow: 'hidden'
+  },
+
+  modalBottomBody: {
+    width: sizes.screenWidth,
+    alignItems: 'center',
     paddingTop: sizes.screenHeight * 0.03,
     paddingBottom: sizes.screenHeight * 0.04,
+    backgroundColor: colors.white,
+
   },
 
   modalBottomHeading: {

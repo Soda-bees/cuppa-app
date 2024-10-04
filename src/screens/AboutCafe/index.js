@@ -754,7 +754,11 @@ export default function AboutCafe({navigation, route}) {
         onBackButtonPress={() => setShowModal(false)}
         onBackdropPress={() => setShowModal(false)}
         backdropOpacity={0.5}>
-        <View style={styles.modalContainer}>
+        <TouchableOpacity
+        activeOpacity={1}
+        onPress={() => setShowModal(false)}
+        style={styles.modalContainer}>
+        <View style={styles.modalBottomBodyContainer}>
           {favourite ? (
             <View style={styles.modalBottomBody}>
               <View style={styles.modalBottomTextBody}>
@@ -796,7 +800,8 @@ export default function AboutCafe({navigation, route}) {
               </View>
             </View>
           )}
-        </View>
+          </View>
+        </TouchableOpacity>
       </Modal>
       <Modal
         isVisible={successModal}
