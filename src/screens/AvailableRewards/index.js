@@ -250,7 +250,11 @@ export default function AvailableRewards({navigation, route}) {
             setErrMsg('');
           }}
           backdropOpacity={0.5}>
-          <View style={styles.modalContainer}>
+          <TouchableOpacity 
+          onPress={() => setConfirmModal(false)}
+          activeOpacity={1}
+          style={styles.modalContainer}>
+            <View style={styles.modalBottomBodyContainer}>
             <View style={styles.modalBottomBody}>
               <Text style={styles.modalBottomHeading}>
                 Grand this reward to the user
@@ -324,7 +328,9 @@ export default function AvailableRewards({navigation, route}) {
                 )}
               </View>
             </View>
-          </View>
+            </View>
+
+          </TouchableOpacity>
         </Modal>
 
         <Modal

@@ -185,6 +185,8 @@ import scanQrImg from '../../../assets/scanQrImg.png';
 import newQrImg from '../../../assets/newQrImg.png';
 import crossIconGreen from '../../../assets/crossIconGreen.png';
 import oops from '../../../assets/oops.png';
+import cuppaIcon from '../../../assets/cuppaIcon.png';
+
 
 const images = {
   addImg,
@@ -375,6 +377,7 @@ const images = {
   newQrImg,
   crossIconGreen,
   oops,
+  cuppaIcon
 };
 
 export default images;

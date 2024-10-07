@@ -88,15 +88,20 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 
-  modalBody: {
-    height: sizes.screenHeight * 0.25,
-    width: sizes.screenWidth,
-    paddingLeft: sizes.screenWidth * 0.05,
+  modalBodyConatiner:{
     backgroundColor: colors.white,
     position: 'absolute',
     bottom: 0,
     borderTopLeftRadius: sizes.screenHeight * 0.03,
     borderTopRightRadius: sizes.screenHeight * 0.03,
+    overflow: 'hidden'
+  },
+
+  modalBody: {
+    height: sizes.screenHeight * 0.25,
+    width: sizes.screenWidth,
+    paddingLeft: sizes.screenWidth * 0.05,
+    backgroundColor: colors.white,
     paddingTop: sizes.screenHeight * 0.03,
   },
 

@@ -72,7 +72,12 @@ export default function AdminSettings({navigation}) {
           onBackButtonPress={() => setShowModal(false)}
           onBackdropPress={() => setShowModal(false)}
           backdropOpacity={0.5}>
-          <View style={styles.modalContainer}>
+          <TouchableOpacity 
+          onPress={() => setShowModal(false)}
+          activeOpacity={1}
+          style={styles.modalContainer}>
+            <View style={styles.modalBodyConatiner}>
+
             <View style={styles.modalBody}>
               <Text style={styles.modalHeading}>Logging Out?</Text>
               <Text style={styles.modalText}>
@@ -102,7 +107,9 @@ export default function AdminSettings({navigation}) {
                 </TouchableOpacity>
               </View>
             </View>
-          </View>
+            </View>
+
+          </TouchableOpacity>
         </Modal>
       </View>
     </SafeAreaView>

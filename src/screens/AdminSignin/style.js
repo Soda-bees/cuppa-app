@@ -9,8 +9,11 @@ export const styles = StyleSheet.create({
     height: sizes.screenHeight,
   },
 
-  margin: {
-    height: sizes.screenHeight * 0.15,
+  cuppaIcon:{
+    height: sizes.screenWidth*0.4,
+    width: sizes.screenWidth*0.4,
+    resizeMode: 'contain',
+    marginVertical: sizes.screenHeight*0.04
   },
 
   subHeading: {
@@ -26,7 +29,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: sizes.screenWidth * 0.02,
     paddingTop: sizes.screenWidth * 0.02,
     borderRadius: sizes.screenWidth * 0.03,
-    marginBottom: sizes.screenHeight * 0.01,
+    marginBottom: sizes.screenHeight * 0.02,
     flexDirection: 'row',
     alignItems: 'center',
   },

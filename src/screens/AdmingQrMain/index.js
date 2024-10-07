@@ -5,14 +5,20 @@ import images from '../../services/utilities/images';
 import {styles} from './style';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera} from 'react-native-camera';
+import { useSelector } from 'react-redux';
+import { selectUserData } from '../../store/userDetails';
 
 export default function AdminQrMain({navigation}) {
+
+  const userData = useSelector(selectUserData)
+  console.log(userData?.outletName);
+
   return (
     <SafeAreaView>
       <View style={styles.container}>
         <View style={styles.header}>
           <View>
-            <Text style={styles.textBold}>Havana Cafe</Text>
+            <Text style={styles.textBold}>{userData.outletName}</Text>
             <Text style={styles.textLight}>
               Uncover cafe treasures effortlessly.
             </Text>

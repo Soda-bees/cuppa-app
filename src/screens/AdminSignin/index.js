@@ -123,7 +123,7 @@ export default function AdminScanQr({navigation}) {
     <SafeAreaView>
       <View style={styles.mainContainer}>
         <Header title={'Log In'} />
-        <View style={styles.margin}></View>
+        <Image source={images.cuppaIcon} style={styles.cuppaIcon}/>
         <View style={styles.inputView}>
           <View>
             <Text style={styles.inputTitle}>Email</Text>
@@ -178,7 +178,7 @@ export default function AdminScanQr({navigation}) {
           <Text style={styles.forgotPass}>Forgot Password?</Text>
         </TouchableOpacity> */}
 
-        <View style={styles.dividerView}>
+        {/* <View style={styles.dividerView}>
           <View style={styles.divider} />
           <Text style={styles.dividerText}>Sign In with</Text>
           <View style={styles.divider} />
@@ -195,7 +195,7 @@ export default function AdminScanQr({navigation}) {
             <Image source={images.facebookIcon} style={styles.btnImg} />
             <Text style={styles.linkText}>Continue with Facebook</Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </SafeAreaView>
   );
