@@ -3,11 +3,13 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   ActivityIndicator,
   Image,
+  Keyboard,
   KeyboardAvoidingView,
   ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import {View} from 'react-native';
 import {styles} from './style';
@@ -34,13 +36,13 @@ import {
   updateReview,
 } from '../../services/config/API';
 import Modal from 'react-native-modal';
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import {
   addNewReviewRedux,
   deleteOutletReviewRedux,
   selectOutlets,
   updateOutletReviewRedux,
 } from '../../store/outletsSlice';
-
 export default function Review({navigation, route}) {
   const {cafe} = route.params;
   const token = useSelector(selectAuthToken);
@@ -199,110 +201,110 @@ export default function Review({navigation, route}) {
 
   return (
     <SafeAreaView>
-      <ScrollView>
-        <View style={styles.mainContainer}>
-          <View style={styles.headerContainer}>
-            <Header title={review ? 'Edit your review' : 'Write a review'} />
-          </View>
-          <Image style={styles.outletCover} source={{uri: cafe?.outletCover}} />
-          <Text style={styles.cafeName}>{cafe?.outletName}</Text>
-          <View style={styles.ratingContainer}>
-            {/* <StarRating
-              // disabled={true}
-              emptyStarColor="#ECAC37"
-              fullStarColor="#FCC767"
-              starSize={36}
-              maxStars={5}
-              rating={rating}
-              selectedStar={rating => setRating(rating)}
-            /> */}
-            <StarRating
-              // disabled={true}
-              emptyColor="#ECAC37"
-              color="#ECAC37"
-              starSize={36}
-              maxStars={5}
-              rating={rating}
-              onChange={rating => setRating(rating)}
+      {/* <ScrollView> */}
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <KeyboardAwareScrollView extraHeight={100}>
+          <View style={styles.mainContainer}>
+            <View style={styles.headerContainer}>
+              <Header title={review ? 'Edit your review' : 'Write a review'} />
+            </View>
+            <Image
+              style={styles.outletCover}
+              source={{uri: cafe?.outletCover}}
             />
-          </View>
-          <Text style={styles.disabledText}>{`Tell us about your experience at 
+            <Text style={styles.cafeName}>{cafe?.outletName}</Text>
+            <View style={styles.ratingContainer}>
+              {/* <StarRating
+                emptyColor="#ECAC37"
+                color="#ECAC37"
+                starSize={36}
+                maxStars={5}
+                rating={rating}
+                onChange={rating => setRating(rating)}
+              /> */}
+            </View>
+            <Text
+              style={styles.disabledText}>{`Tell us about your experience at 
             ${cafe.outletName}`}</Text>
 
-          <View style={styles.profileContainerMain}>
-            <View style={styles.profileContainer}>
-              <Image style={styles.profile} source={{uri: userData.profile}} />
-              <Text style={styles.userName}>{userData.userName}</Text>
-            </View>
-            {review ? (
-              loader2 ? (
-                <LinearGradient
-                  start={{x: 0, y: 0}}
-                  end={{x: 1, y: 0}}
-                  colors={['#287C76', '#60B0AA']}
-                  style={styles.deleteBtn}>
-                  <ActivityIndicator color={'white'} size={26} />
-                </LinearGradient>
-              ) : (
-                <TouchableOpacity
-                  onPress={() => {
-                    setConfirmModal(true);
-                  }}
-                  style={styles.deleteBtnContainer}>
+            <View style={styles.profileContainerMain}>
+              <View style={styles.profileContainer}>
+                <Image
+                  style={styles.profile}
+                  source={{uri: userData.profile}}
+                />
+                <Text style={styles.userName}>{userData.userName}</Text>
+              </View>
+              {review ? (
+                loader2 ? (
                   <LinearGradient
                     start={{x: 0, y: 0}}
                     end={{x: 1, y: 0}}
                     colors={['#287C76', '#60B0AA']}
                     style={styles.deleteBtn}>
-                    <Image
-                      source={images.deleteIcon}
-                      style={styles.deleteIcon}
-                    />
+                    <ActivityIndicator color={'white'} size={26} />
                   </LinearGradient>
-                </TouchableOpacity>
-              )
-            ) : null}
-          </View>
-
-          <View style={styles.instructionsContainer}>
-            <TextInput
-              placeholder="Your review here.."
-              placeholderTextColor={colors.disabledBg2}
-              multiline
-              value={comment}
-              style={styles.descriptionInput}
-              onChangeText={text => {
-                setComment(text);
-              }}
-            />
-          </View>
-          <Text style={styles.errMsg}>{errMsg}</Text>
-
-          {loader ? (
-            <View
-              style={
-                Platform.OS == 'android'
-                  ? styles.bottomBtnContainer
-                  : styles.bottomBtnContainerIOS
-              }>
-              <BottomBtnLoader title={'Submit'} />
+                ) : (
+                  <TouchableOpacity
+                    onPress={() => {
+                      setConfirmModal(true);
+                    }}
+                    style={styles.deleteBtnContainer}>
+                    <LinearGradient
+                      start={{x: 0, y: 0}}
+                      end={{x: 1, y: 0}}
+                      colors={['#287C76', '#60B0AA']}
+                      style={styles.deleteBtn}>
+                      <Image
+                        source={images.deleteIcon}
+                        style={styles.deleteIcon}
+                      />
+                    </LinearGradient>
+                  </TouchableOpacity>
+                )
+              ) : null}
             </View>
-          ) : (
-            <View
-              style={
-                Platform.OS == 'android'
-                  ? styles.bottomBtnContainer
-                  : styles.bottomBtnContainerIOS
-              }>
-              <BottomBtnUser
-                title={'Submit'}
-                img={true}
-                onPress={handleSubmit}
+            <View style={styles.instructionsContainer}>
+              <TextInput
+                placeholder="Your review here.."
+                placeholderTextColor={colors.disabledBg2}
+                multiline
+                value={comment}
+                style={styles.descriptionInput}
+                onChangeText={text => {
+                  setComment(text);
+                }}
               />
             </View>
-          )}
-        </View>
-      </ScrollView>
+            <Text style={styles.errMsg}>{errMsg}</Text>
+
+            {loader ? (
+              <View
+                style={
+                  Platform.OS == 'android'
+                    ? styles.bottomBtnContainer
+                    : styles.bottomBtnContainerIOS
+                }>
+                <BottomBtnLoader title={'Submit'} />
+              </View>
+            ) : (
+              <View
+                style={
+                  Platform.OS == 'android'
+                    ? styles.bottomBtnContainer
+                    : styles.bottomBtnContainerIOS
+                }>
+                <BottomBtnUser
+                  title={'Submit'}
+                  img={true}
+                  onPress={handleSubmit}
+                />
+              </View>
+            )}
+          </View>
+        </KeyboardAwareScrollView>
+      </TouchableWithoutFeedback>
+      {/* </ScrollView> */}
 
       <Modal isVisible={showModal1} backdropOpacity={0.5}>
         <View style={styles.modalBody}>

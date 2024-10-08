@@ -311,7 +311,11 @@ export default function ClaimRewards({navigation}) {
           onBackButtonPress={() => setShowModal7(false)}
           onBackdropPress={() => setShowModal7(false)}
           backdropOpacity={0.5}>
-          <View style={styles.modalContainer}>
+          <TouchableOpacity
+          activeOpacity={1}
+          onPress={()=>{setShowModal7(false)}} 
+          style={styles.modalContainer}>
+            <View style={styles.modalBottomBodyConatiner}>
             <View style={styles.modalBottomBody}>
               <Text style={styles.modalBottomHeading}>
                 Redeem Cuppa Rewards
@@ -344,7 +348,8 @@ export default function ClaimRewards({navigation}) {
                 </TouchableOpacity>
               </View>
             </View>
-          </View>
+            </View>
+          </TouchableOpacity>
         </Modal>
 
         <Modal
@@ -358,7 +363,11 @@ export default function ClaimRewards({navigation}) {
             setErrMsg('');
           }}
           backdropOpacity={0.5}>
-          <View style={styles.modalContainer}>
+          <TouchableOpacity
+          activeOpacity={1}
+          onPress={()=>{setConfirmModal(false)}} 
+          style={styles.modalContainer}>
+            <View style={styles.modalBottomBodyConatiner}>
             <View style={styles.modalBottomBody}>
               <Text style={styles.modalBottomHeading}>
                 Turn Cuppa Beans into your favourite rewards
@@ -403,7 +412,9 @@ export default function ClaimRewards({navigation}) {
                 )}
               </View>
             </View>
-          </View>
+            </View>
+
+          </TouchableOpacity>
         </Modal>
 
         <Modal

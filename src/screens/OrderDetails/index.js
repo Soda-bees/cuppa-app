@@ -294,7 +294,10 @@ export default function OrderDetails({navigation, route}) {
         ) : null}
 
         <Modal isVisible={confirmModal} backdropOpacity={0.5}>
-          <View style={styles.modalContainer}>
+          <TouchableOpacity
+          activeOpacity={1} 
+          style={styles.modalContainer}>
+            <View style={styles.modalBottomBodyConatiner}>
             <View style={styles.modalBottomBody}>
               <Text style={styles.modalBottomHeading}>
                 Are you sure you want to cnacel this order?
@@ -334,7 +337,8 @@ export default function OrderDetails({navigation, route}) {
                 )}
               </View>
             </View>
-          </View>
+            </View>
+          </TouchableOpacity>
         </Modal>
 
         <Modal isVisible={deleteModal} backdropOpacity={0.5}>
