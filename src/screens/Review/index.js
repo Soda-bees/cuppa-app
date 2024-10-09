@@ -214,14 +214,14 @@ export default function Review({navigation, route}) {
             />
             <Text style={styles.cafeName}>{cafe?.outletName}</Text>
             <View style={styles.ratingContainer}>
-              {/* <StarRating
+              <StarRating
                 emptyColor="#ECAC37"
                 color="#ECAC37"
                 starSize={36}
                 maxStars={5}
                 rating={rating}
                 onChange={rating => setRating(rating)}
-              /> */}
+              />
             </View>
             <Text
               style={styles.disabledText}>{`Tell us about your experience at 
@@ -338,6 +338,7 @@ export default function Review({navigation, route}) {
 
       <Modal isVisible={confirmModal} backdropOpacity={0.5}>
         <View style={styles.modalContainer}>
+        <View style={styles.modalBottomBodyContainer}>
           <View style={styles.modalBottomBody}>
             <Text style={styles.modalBottomHeading}>
               Are you sure you want to delete your review?
@@ -364,6 +365,7 @@ export default function Review({navigation, route}) {
                 </LinearGradient>
               </TouchableOpacity>
             </View>
+          </View>
           </View>
         </View>
       </Modal>

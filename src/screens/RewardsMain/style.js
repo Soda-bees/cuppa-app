@@ -92,7 +92,7 @@ export const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: fontSize.h6,
     color: colors.white,
-    width: sizes.screenWidth * 0.5,
+    // width: sizes.screenWidth * 0.5,
   },
 
   shareTextWhite2: {

@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Image, Text, TouchableOpacity} from 'react-native';
+import {Image, Keyboard, Text, TouchableOpacity, TouchableWithoutFeedback} from 'react-native';
 import {View} from 'react-native';
 import {styles} from './style';
 import {TextInput} from 'react-native';
@@ -147,7 +147,10 @@ export default function EditProfile({navigation}) {
   };
   return (
     <SafeAreaView>
-      <View style={styles.mainContainer}>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()} >
+        <View style={styles.mainContainer}>
+
+
         <View style={styles.headerContainer}>
           <Header title={'Edit Profile'} />
         </View>
@@ -282,7 +285,9 @@ export default function EditProfile({navigation}) {
             </LinearGradient>
           </TouchableOpacity>
         )}
-      </View>
+        </View>
+      
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 }

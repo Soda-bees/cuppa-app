@@ -57,6 +57,7 @@ import AdminQrMain from '../../screens/AdmingQrMain';
 import AvailableRewards from '../../screens/AvailableRewards';
 import Scanner from '../../screens/Scanner';
 import {selectRole, setRole} from '../../store/role';
+import Wallet from '../../screens/Wallet';
 
 const Stack = createStackNavigator();
 export default function MainNavigator() {
@@ -96,7 +97,6 @@ export default function MainNavigator() {
       ) : role === 'user' ? (
         <Stack.Navigator screenOptions={{headerShown: false}}>
           <Stack.Screen name="TabNavigation" component={UserTabNavigation} />
-
           <Stack.Screen name="Account" component={Account} />
           <Stack.Screen name="EditProfile" component={EditProfile} />
           <Stack.Screen name="Notifications" component={Notifications} />
@@ -138,6 +138,8 @@ export default function MainNavigator() {
           <Stack.Screen name="CafeDeals" component={CafeDeals} />
           <Stack.Screen name="DealOrderSummary" component={DealOrderSummary} />
           <Stack.Screen name="DealCheckout" component={DealCheckout} />
+          <Stack.Screen name="Wallet" component={Wallet} />
+
         </Stack.Navigator>
       ) : (
         <Stack.Navigator screenOptions={{headerShown: false}}>

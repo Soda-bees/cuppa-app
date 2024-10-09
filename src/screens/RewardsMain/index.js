@@ -174,11 +174,11 @@ export default function RewardsMain({navigation}) {
                   />
                   <View style={styles.myRewardsShareTextContainer}>
                     <Text style={styles.shareTextWhite}>
-                      Share Cuppa With Friends & Earn Points
+                      Share Cuppa With Friends & Family
                     </Text>
-                    <TouchableOpacity style={styles.shareBtn}>
+                    {/* <TouchableOpacity style={styles.shareBtn}>
                       <Text style={styles.shareBtnText}>Share</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                   </View>
                 </View>
 
@@ -247,23 +247,13 @@ export default function RewardsMain({navigation}) {
                       </LinearGradient>
                     </TouchableOpacity>
 
-                    <View style={styles.progressCircleContainer2}>
+                    {/* <View style={styles.progressCircleContainer2}>
                       <View>
                         <Text style={styles.heading}>Weekly Challenge:</Text>
                         <Text style={styles.textRegular}>
                           7 day streak of coffee purchase
                         </Text>
                       </View>
-                      {/* <ProgressCircle
-                        percent={50}
-                        radius={30}
-                        borderWidth={8}
-                        color={colors.teal}
-                        shadowColor="#60B0AA22"
-                        bgColor="#fff">
-                        <Text style={styles.ProgressCircleText}>{'50%'}</Text>
-                      </ProgressCircle> */}
-
                       <AnimatedCircularProgress
                         size={54}
                         width={7}
@@ -304,7 +294,7 @@ export default function RewardsMain({navigation}) {
                           </View>
                         );
                       })}
-                    </View>
+                    </View> */}
                   </View>
                 ) : (
                   <View style={{alignItems: 'center'}}>
@@ -338,22 +328,13 @@ export default function RewardsMain({navigation}) {
                       </LinearGradient>
                     </TouchableOpacity>
 
-                    <View style={styles.progressCircleContainer}>
+                    {/* <View style={styles.progressCircleContainer}>
                       <View>
                         <Text style={styles.heading}>Weekly Challenge:</Text>
                         <Text style={styles.textRegular}>
                           7 day streak of coffee purchase
                         </Text>
                       </View>
-                      {/* <ProgressCircle
-                        percent={50}
-                        radius={30}
-                        borderWidth={8}
-                        color={colors.teal}
-                        shadowColor="#60B0AA22"
-                        bgColor="#fff">
-                        <Text style={styles.ProgressCircleText}>{'50%'}</Text>
-                      </ProgressCircle> */}
                       <AnimatedCircularProgress
                         size={54}
                         width={7}
@@ -366,7 +347,7 @@ export default function RewardsMain({navigation}) {
                           <Text style={styles.ProgressCircleText}>{fill}%</Text>
                         )}
                       </AnimatedCircularProgress>
-                    </View>
+                    </View> */}
 
                     <View style={styles.membershipCardContainer}>
                       <Image
@@ -398,7 +379,7 @@ export default function RewardsMain({navigation}) {
                         </TouchableOpacity>
                       </View>
                     </View>
-                    <View style={styles.getExtraPointsContainerMain}>
+                    {/* <View style={styles.getExtraPointsContainerMain}>
                       <Text style={styles.heading}>Get extra points</Text>
                       <View style={styles.separator}></View>
                       {extraPoints.map((item, index) => {
@@ -424,7 +405,7 @@ export default function RewardsMain({navigation}) {
                           </View>
                         );
                       })}
-                    </View>
+                    </View> */}
                   </View>
                 )}
               </View>
@@ -599,3 +580,12 @@ export default function RewardsMain({navigation}) {
     </SafeAreaView>
   );
 }
+                      {/* <ProgressCircle
+                        percent={50}
+                        radius={30}
+                        borderWidth={8}
+                        color={colors.teal}
+                        shadowColor="#60B0AA22"
+                        bgColor="#fff">
+                        <Text style={styles.ProgressCircleText}>{'50%'}</Text>
+                      </ProgressCircle> */}

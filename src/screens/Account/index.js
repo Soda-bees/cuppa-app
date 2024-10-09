@@ -99,6 +99,15 @@ export default function Account({navigation}) {
 
         <TouchableOpacity
           onPress={() => {
+            navigation.navigate('Wallet');
+          }}
+          style={styles.navigateBtns}>
+          <Image style={styles.icon} source={images.walletIcon} />
+          <Text style={styles.subHeading}>Wallet</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => {
             navigation.navigate('Privacy');
           }}
           style={styles.navigateBtns}>

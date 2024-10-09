@@ -93,6 +93,13 @@ const userDataSlice = createSlice({
 
       return state;
     },
+    updateWalletRedux: (state , action) => {
+      const balance = action.payload
+      if (state.userData) {
+        state.userData.wallet = balance;
+      }
+      
+    }
   },
 });
 export const {
@@ -106,6 +113,7 @@ export const {
   addNewReviewUserRedux,
   updateUserReviewRedux,
   deleteUserReviewRedux,
+  updateWalletRedux
 } = userDataSlice.actions;
 export const selectUserData = state => state.user.userData;
 export default userDataSlice.reducer;

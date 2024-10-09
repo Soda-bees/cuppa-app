@@ -12,8 +12,8 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		22C65BF78546393CEE8EBADB /* Pods_Cuppa_CuppaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F5225AD263766DBF36F246E /* Pods_Cuppa_CuppaTests.framework */; };
+		5042AFF22CB51F9E001919F8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5042AFF12CB51F9E001919F8 /* LaunchScreen.storyboard */; };
 		507AEA052CAE8E0600D48A3A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 507AEA042CAE8E0600D48A3A /* GoogleService-Info.plist */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8EF137A0FAFCCC0339077CD3 /* Pods_Cuppa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF8966E894956A28C9A7091E /* Pods_Cuppa.framework */; };
 		E854FA0B3134F18EB4219FF6 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 34F6C3C69FB84BE91588D27B /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
@@ -42,11 +42,11 @@
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = Cuppa/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		34F6C3C69FB84BE91588D27B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = Cuppa/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-Cuppa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cuppa.debug.xcconfig"; path = "Target Support Files/Pods-Cuppa/Pods-Cuppa.debug.xcconfig"; sourceTree = "<group>"; };
+		5042AFF12CB51F9E001919F8 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		507AEA042CAE8E0600D48A3A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		507AEA062CAE91EB00D48A3A /* Cuppa.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Cuppa.entitlements; path = Cuppa/Cuppa.entitlements; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-Cuppa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cuppa.release.xcconfig"; path = "Target Support Files/Pods-Cuppa/Pods-Cuppa.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-Cuppa-CuppaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cuppa-CuppaTests.debug.xcconfig"; path = "Target Support Files/Pods-Cuppa-CuppaTests/Pods-Cuppa-CuppaTests.debug.xcconfig"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Cuppa/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-Cuppa-CuppaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cuppa-CuppaTests.release.xcconfig"; path = "Target Support Files/Pods-Cuppa-CuppaTests/Pods-Cuppa-CuppaTests.release.xcconfig"; sourceTree = "<group>"; };
 		DF8966E894956A28C9A7091E /* Pods_Cuppa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cuppa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -94,10 +94,10 @@
 			children = (
 				507AEA062CAE91EB00D48A3A /* Cuppa.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				5042AFF12CB51F9E001919F8 /* LaunchScreen.storyboard */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
 				34F6C3C69FB84BE91588D27B /* PrivacyInfo.xcprivacy */,
@@ -252,8 +252,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				507AEA052CAE8E0600D48A3A /* GoogleService-Info.plist in Resources */,
+				5042AFF22CB51F9E001919F8 /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				E854FA0B3134F18EB4219FF6 /* PrivacyInfo.xcprivacy in Resources */,
 			);

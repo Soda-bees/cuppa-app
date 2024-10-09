@@ -31,7 +31,7 @@ export default function DealCheckout({navigation, route}) {
   const user = useSelector(selectUserData);
   const selectedCard = user?.cardDetails?.find(card => card?.selected === true);
   const [pickupTime, setPickupTime] = useState('Standard');
-  const [paymentMethod, setPaymentMethod] = useState('Cash on delivery');
+  const [paymentMethod, setPaymentMethod] = useState('Wallet');
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState(new Date());
   console.log(new Date());
@@ -80,6 +80,20 @@ export default function DealCheckout({navigation, route}) {
         paymentMethod,
         totalAmount: finalTotal,
       };
+
+      const totalAmount = Number(finalTotal);
+      const walletBalance = Number(user.wallet);
+
+      if (totalAmount > walletBalance) {
+        const shortfall = totalAmount - walletBalance;
+        setLoader(false);
+        setErrorMsg(
+          `Insufficient balance: You need an additional ${shortfall.toFixed(
+            2,
+          )} to complete this order.`,
+        );
+        return;
+      }
 
       console.log(body);
       const response = await placeOrder(body, token);
@@ -174,6 +188,28 @@ export default function DealCheckout({navigation, route}) {
     }
   };
 
+  const handleCafeDistance = (lat1, lon1, lat2, lon2) => {
+    const R = 6371;
+    const dLat = ((lat2 - lat1) * Math.PI) / 180;
+    const dLon = ((lon2 - lon1) * Math.PI) / 180;
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos((lat1 * Math.PI) / 180) *
+        Math.cos((lat2 * Math.PI) / 180) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c;
+    return distance.toFixed(1);
+  };
+
+  const distance = handleCafeDistance(
+    cafe?.outletLocation?.latitude,
+    cafe?.outletLocation?.longitude,
+    user?.location?.latitude,
+    user?.location?.longitude,
+  );
+
   return (
     <SafeAreaView>
       <View style={styles.mainContainer}>
@@ -193,10 +229,14 @@ export default function DealCheckout({navigation, route}) {
               <MapView
                 style={styles.map}
                 region={{
-                  latitude: 40.7590615,
-                  longitude: -73.969231,
+                  latitude: cafe?.outletLocation?.latitude
+                    ? cafe?.outletLocation?.latitude
+                    : 40.7590615,
+                  longitude: cafe?.outletLocation?.longitude
+                    ? cafe?.outletLocation?.longitude
+                    : -73.969231,
                   latitudeDelta: 0.015,
-                  longitudeDelta: 0.0121,
+                  longitudeDelta: 0.015,
                 }}></MapView>
             </View>
 
@@ -212,7 +252,9 @@ export default function DealCheckout({navigation, route}) {
               <Image style={styles.icon} source={images.walkIcon} />
               <View>
                 <Text style={styles.itemHeading}>Distance</Text>
-                <Text style={styles.itemAddOns}>1.5 Kilometers</Text>
+                <Text style={styles.itemAddOns}>
+                  {distance ?? '1.5'} Kilometers
+                </Text>
               </View>
             </View>
 
@@ -270,7 +312,7 @@ export default function DealCheckout({navigation, route}) {
               </Text>
             </TouchableOpacity>
 
-            <View style={styles.upiContainer}>
+            {/* <View style={styles.upiContainer}>
               <Text style={styles.itemHeading}>UPI</Text>
 
               <View style={styles.payIconRow}>
@@ -350,7 +392,7 @@ export default function DealCheckout({navigation, route}) {
                   Cash on delivery available
                 </Text>
               </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             <Text style={styles.errMsg}>{errorMsg}</Text>
 

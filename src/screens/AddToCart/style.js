@@ -242,15 +242,21 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 
+  modalBodyConatiner:{
+    position: 'absolute',
+    bottom: 0,
+    borderTopLeftRadius: sizes.screenHeight * 0.03,
+    borderTopRightRadius: sizes.screenHeight * 0.03,
+    backgroundColor: colors.white,
+    overflow: 'hidden'
+  },
+
+
   modalBody: {
     height: sizes.screenHeight * 0.28,
     width: sizes.screenWidth,
     paddingLeft: sizes.screenWidth * 0.05,
     backgroundColor: colors.white,
-    position: 'absolute',
-    bottom: 0,
-    borderTopLeftRadius: sizes.screenHeight * 0.03,
-    borderTopRightRadius: sizes.screenHeight * 0.03,
     paddingTop: sizes.screenHeight * 0.03,
   },
 

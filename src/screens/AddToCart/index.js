@@ -194,6 +194,7 @@ export default function AddToCart({navigation, route}) {
     }));
   };
 
+  
   return (
     <SafeAreaView>
       {/* <ScrollView> */}
@@ -479,6 +480,8 @@ export default function AddToCart({navigation, route}) {
         onBackdropPress={() => setPermissionModal(false)}
         backdropOpacity={0.5}>
         <View style={styles.modalContainer}>
+        <View style={styles.modalBodyConatiner}>
+
           <View style={styles.modalBody}>
             <Text style={styles.modalHeading}>Add to cart?</Text>
             <Text style={styles.modalText}>
@@ -509,6 +512,8 @@ export default function AddToCart({navigation, route}) {
               </TouchableOpacity>
             </View>
           </View>
+        </View>
+
         </View>
       </Modal>
     </SafeAreaView>

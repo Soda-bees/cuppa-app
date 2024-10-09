@@ -571,3 +571,48 @@ export const loginWithGoogle = async body => {
     return error;
   }
 };
+
+export const createPaymentIntent = async (token, body) => {
+  try {
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    };
+    const response = await axiosInstance.post('user/createPaymentIntent', body, {
+      headers,
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getWalletBalance = async token => {
+  try {
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    };
+    const response = await axiosInstance.get('user/getWalletBalance', {
+      headers,
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const addWalletBalance = async (token, body) => {
+  try {
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    };
+    const response = await axiosInstance.post('user/addWalletBalance', body, {
+      headers,
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};

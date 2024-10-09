@@ -186,6 +186,9 @@ import newQrImg from '../../../assets/newQrImg.png';
 import crossIconGreen from '../../../assets/crossIconGreen.png';
 import oops from '../../../assets/oops.png';
 import cuppaIcon from '../../../assets/cuppaIcon.png';
+import walletIcon from '../../../assets/walletIcon.png';
+import walletImg from '../../../assets/walletImg.png';
+
 
 
 const images = {
@@ -377,7 +380,9 @@ const images = {
   newQrImg,
   crossIconGreen,
   oops,
-  cuppaIcon
+  cuppaIcon,
+  walletIcon,
+  walletImg
 };
 
 export default images;
