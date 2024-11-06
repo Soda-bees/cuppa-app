@@ -1,6 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Image, Platform, ScrollView, Text, TouchableOpacity} from 'react-native';
+import {
+  Image,
+  Platform,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import {View} from 'react-native';
 import {styles} from './style';
 import images from '../../services/utilities/images';
@@ -27,7 +33,7 @@ export default function AllEvents({navigation}) {
 
   const filterEvents = (events, isClubMember) => {
     return events
-      ?.filter(item => isFutureDate(item.date))
+      ?.filter(item => isFutureDateOrToday(item.date, item.timing))
       ?.filter(item => {
         if (!isClubMember) {
           return item.exclusive === false;
@@ -36,11 +42,41 @@ export default function AllEvents({navigation}) {
       });
   };
 
-  const isFutureDate = dateString => {
+  const isFutureDateOrToday = (dateString, timeString) => {
     const [day, month, year] = dateString.split('-').map(Number);
     const eventDate = new Date(year, month - 1, day);
-    const currentDate = new Date();
-    return eventDate > currentDate;
+    const today = new Date();
+
+    today.setHours(0, 0, 0, 0);
+
+    if (eventDate < today) {
+      return false;
+    }
+
+    if (eventDate > today) {
+      return true;
+    }
+
+    const [startTime, endTime] = timeString.split(' - ').map(time => {
+      const [timePart, period] = time.trim().split(' ');
+      let [hours, minutes] = timePart.split(':').map(Number);
+
+      // Convert to 24-hour format
+      if (period === 'PM' && hours < 12) hours += 12;
+      if (period === 'AM' && hours === 12) hours = 0;
+
+      return {hours, minutes};
+    });
+
+    const eventStart = new Date();
+    eventStart.setHours(startTime.hours, startTime.minutes, 0, 0);
+
+    const eventEnd = new Date();
+    eventEnd.setHours(endTime.hours, endTime.minutes, 0, 0);
+
+    const currentTime = new Date();
+
+    return currentTime >= eventStart && currentTime <= eventEnd;
   };
 
   const handleCafeDistance = (lat1, lon1, lat2, lon2) => {
@@ -120,7 +156,13 @@ export default function AllEvents({navigation}) {
               </React.Fragment>
             ))}
           </ScrollView>
-          <View style={{height:Platform.OS == 'android' ? sizes.screenHeight * 0.16 : sizes.screenHeight * 0.23}}></View>
+          <View
+            style={{
+              height:
+                Platform.OS == 'android'
+                  ? sizes.screenHeight * 0.16
+                  : sizes.screenHeight * 0.23,
+            }}></View>
         </View>
       </View>
     </SafeAreaView>

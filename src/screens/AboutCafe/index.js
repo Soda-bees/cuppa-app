@@ -198,16 +198,46 @@ export default function AboutCafe({navigation, route}) {
     setReviews(userReview ? [userReview, ...otherReviews] : otherReviews);
   }, []);
 
-  const isFutureDate = dateString => {
+  const isFutureDateOrToday = (dateString, timeString) => {
     const [day, month, year] = dateString.split('-').map(Number);
     const eventDate = new Date(year, month - 1, day);
-    const currentDate = new Date();
-    return eventDate > currentDate;
+    const today = new Date();
+
+    today.setHours(0, 0, 0, 0);
+
+    if (eventDate < today) {
+      return false;
+    }
+
+    if (eventDate > today) {
+      return true;
+    }
+
+    const [startTime, endTime] = timeString.split(' - ').map(time => {
+      const [timePart, period] = time.trim().split(' ');
+      let [hours, minutes] = timePart.split(':').map(Number);
+
+      // Convert to 24-hour format
+      if (period === 'PM' && hours < 12) hours += 12;
+      if (period === 'AM' && hours === 12) hours = 0;
+
+      return {hours, minutes};
+    });
+
+    const eventStart = new Date();
+    eventStart.setHours(startTime.hours, startTime.minutes, 0, 0);
+
+    const eventEnd = new Date();
+    eventEnd.setHours(endTime.hours, endTime.minutes, 0, 0);
+
+    const currentTime = new Date();
+
+    return currentTime >= eventStart && currentTime <= eventEnd;
   };
 
   const filterEvents = (events, isClubMember) => {
     return events
-      ?.filter(item => isFutureDate(item.date))
+      ?.filter(item => isFutureDateOrToday(item.date, item.timing))
       ?.filter(item => {
         if (!isClubMember) {
           return item.exclusive === false;
@@ -755,51 +785,51 @@ export default function AboutCafe({navigation, route}) {
         onBackdropPress={() => setShowModal(false)}
         backdropOpacity={0.5}>
         <TouchableOpacity
-        activeOpacity={1}
-        onPress={() => setShowModal(false)}
-        style={styles.modalContainer}>
-        <View style={styles.modalBottomBodyContainer}>
-          {favourite ? (
-            <View style={styles.modalBottomBody}>
-              <View style={styles.modalBottomTextBody}>
-                <Text style={styles.modalTextBold}>
-                  Do you want to remove this cafe from your favorites?
-                </Text>
-              </View>
+          activeOpacity={1}
+          onPress={() => setShowModal(false)}
+          style={styles.modalContainer}>
+          <View style={styles.modalBottomBodyContainer}>
+            {favourite ? (
+              <View style={styles.modalBottomBody}>
+                <View style={styles.modalBottomTextBody}>
+                  <Text style={styles.modalTextBold}>
+                    Do you want to remove this cafe from your favorites?
+                  </Text>
+                </View>
 
-              <View style={styles.bottomBtnContainer}>
-                {loader ? (
-                  <BottomBtnLoader title={'Remove'} />
-                ) : (
-                  <BottomBtnUser
-                    title={'Remove'}
-                    img={true}
-                    onPress={handleFavorites}
-                  />
-                )}
+                <View style={styles.bottomBtnContainer}>
+                  {loader ? (
+                    <BottomBtnLoader title={'Remove'} />
+                  ) : (
+                    <BottomBtnUser
+                      title={'Remove'}
+                      img={true}
+                      onPress={handleFavorites}
+                    />
+                  )}
+                </View>
               </View>
-            </View>
-          ) : (
-            <View style={styles.modalBottomBody}>
-              <View style={styles.modalBottomTextBody}>
-                <Text style={styles.modalTextBold}>
-                  Do you want to add this cafe to your favorites?
-                </Text>
-              </View>
+            ) : (
+              <View style={styles.modalBottomBody}>
+                <View style={styles.modalBottomTextBody}>
+                  <Text style={styles.modalTextBold}>
+                    Do you want to add this cafe to your favorites?
+                  </Text>
+                </View>
 
-              <View style={styles.bottomBtnContainer}>
-                {loader ? (
-                  <BottomBtnLoader title={'Add'} />
-                ) : (
-                  <BottomBtnUser
-                    title={'Add'}
-                    img={true}
-                    onPress={handleFavorites}
-                  />
-                )}
+                <View style={styles.bottomBtnContainer}>
+                  {loader ? (
+                    <BottomBtnLoader title={'Add'} />
+                  ) : (
+                    <BottomBtnUser
+                      title={'Add'}
+                      img={true}
+                      onPress={handleFavorites}
+                    />
+                  )}
+                </View>
               </View>
-            </View>
-          )}
+            )}
           </View>
         </TouchableOpacity>
       </Modal>

@@ -294,49 +294,47 @@ export default function OrderDetails({navigation, route}) {
         ) : null}
 
         <Modal isVisible={confirmModal} backdropOpacity={0.5}>
-          <TouchableOpacity
-          activeOpacity={1} 
-          style={styles.modalContainer}>
+          <TouchableOpacity activeOpacity={1} style={styles.modalContainer}>
             <View style={styles.modalBottomBodyConatiner}>
-            <View style={styles.modalBottomBody}>
-              <Text style={styles.modalBottomHeading}>
-                Are you sure you want to cnacel this order?
-              </Text>
-              <View style={styles.modalBtnContainer}>
-                <TouchableOpacity
-                  style={styles.modalBtnWhite}
-                  onPress={() => {
-                    if (!loader) {
-                      setConfirmModal(false);
-                    }
-                  }}>
-                  <Text style={styles.modalBtnWhiteText}>Discard</Text>
-                </TouchableOpacity>
-
-                {loader ? (
-                  <LinearGradient
-                    start={{x: 0, y: 0}}
-                    end={{x: 1, y: 0}}
-                    colors={['#287C76', '#60B0AA']}
-                    style={styles.modalBtngreen}>
-                    <ActivityIndicator color={'white'} size={30} />
-                  </LinearGradient>
-                ) : (
+              <View style={styles.modalBottomBody}>
+                <Text style={styles.modalBottomHeading}>
+                  Are you sure you want to cnacel this order?
+                </Text>
+                <View style={styles.modalBtnContainer}>
                   <TouchableOpacity
+                    style={styles.modalBtnWhite}
                     onPress={() => {
-                      handleCancelOrder();
+                      if (!loader) {
+                        setConfirmModal(false);
+                      }
                     }}>
+                    <Text style={styles.modalBtnWhiteText}>Discard</Text>
+                  </TouchableOpacity>
+
+                  {loader ? (
                     <LinearGradient
                       start={{x: 0, y: 0}}
                       end={{x: 1, y: 0}}
                       colors={['#287C76', '#60B0AA']}
                       style={styles.modalBtngreen}>
-                      <Text style={styles.modalBtnGreenText}>Cancel now</Text>
+                      <ActivityIndicator color={'white'} size={30} />
                     </LinearGradient>
-                  </TouchableOpacity>
-                )}
+                  ) : (
+                    <TouchableOpacity
+                      onPress={() => {
+                        handleCancelOrder();
+                      }}>
+                      <LinearGradient
+                        start={{x: 0, y: 0}}
+                        end={{x: 1, y: 0}}
+                        colors={['#287C76', '#60B0AA']}
+                        style={styles.modalBtngreen}>
+                        <Text style={styles.modalBtnGreenText}>Cancel now</Text>
+                      </LinearGradient>
+                    </TouchableOpacity>
+                  )}
+                </View>
               </View>
-            </View>
             </View>
           </TouchableOpacity>
         </Modal>

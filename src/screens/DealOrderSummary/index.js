@@ -189,10 +189,10 @@ export default function DealOrderSummary({navigation, route}) {
               </View>
 
               <TouchableOpacity>
-                <Image
+                {/* <Image
                   style={styles.crossIconn}
                   source={images.crossIconWhite}
-                />
+                /> */}
               </TouchableOpacity>
             </View>
 
@@ -208,10 +208,10 @@ export default function DealOrderSummary({navigation, route}) {
               <Text style={styles.textBold}>${prices.taxes}</Text>
             </View>
 
-            <View style={styles.priceRow}>
+            {/* <View style={styles.priceRow}>
               <Text style={styles.textBold}>Delivery fees</Text>
               <Text style={styles.textBold}>${prices.delivery}</Text>
-            </View>
+            </View> */}
 
             <View style={styles.priceRow}>
               <View style={styles.discountRow}>

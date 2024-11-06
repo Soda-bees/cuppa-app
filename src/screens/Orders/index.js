@@ -27,13 +27,19 @@ export default function Orders({navigation}) {
     console.log(formatToJSON(userData?.orders[0]));
     const activeOrders = userData?.orders
       ?.filter(
-        order => order.status !== 'Completed' && order.status !== 'Cancelled',
+        order =>
+          order.status !== 'Completed' &&
+          order.status !== 'Cancelled' &&
+          order.status !== 'Picked',
       )
-      .reverse(); // Reverse the array for display purpose
+      .reverse();
 
     const completedOrders = userData?.orders
       ?.filter(
-        order => order.status === 'Completed' || order.status === 'Cancelled',
+        order =>
+          order.status === 'Completed' ||
+          order.status === 'Picked' ||
+          order.status === 'Cancelled',
       )
       .reverse();
 
@@ -142,7 +148,7 @@ export default function Orders({navigation}) {
                       <View style={styles.deliveryTimeRow}>
                         <View>
                           <ProgressBar
-                            progress={0.7}
+                            progress={item.status == 'Pending' ? 0.5 : 1}
                             color={colors.tealMix}
                             style={styles.progressBar}
                           />

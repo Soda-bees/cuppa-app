@@ -578,9 +578,13 @@ export const createPaymentIntent = async (token, body) => {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     };
-    const response = await axiosInstance.post('user/createPaymentIntent', body, {
-      headers,
-    });
+    const response = await axiosInstance.post(
+      'user/createPaymentIntent',
+      body,
+      {
+        headers,
+      },
+    );
     return response;
   } catch (error) {
     return error;
@@ -609,6 +613,21 @@ export const addWalletBalance = async (token, body) => {
       Authorization: `Bearer ${token}`,
     };
     const response = await axiosInstance.post('user/addWalletBalance', body, {
+      headers,
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const addDealToCart = async (body, token) => {
+  try {
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    };
+    const response = await axiosInstance.post('user/addDealToCart', body, {
       headers,
     });
     return response;

@@ -261,11 +261,41 @@ export default function Home({navigation}) {
     return distance.toFixed(1);
   };
 
-  const isFutureDate = dateString => {
+  const isFutureDateOrToday = (dateString, timeString) => {
     const [day, month, year] = dateString.split('-').map(Number);
     const eventDate = new Date(year, month - 1, day);
-    const currentDate = new Date();
-    return eventDate > currentDate;
+    const today = new Date();
+
+    today.setHours(0, 0, 0, 0);
+
+    if (eventDate < today) {
+      return false;
+    }
+
+    if (eventDate > today) {
+      return true;
+    }
+
+    const [startTime, endTime] = timeString.split(' - ').map(time => {
+      const [timePart, period] = time.trim().split(' ');
+      let [hours, minutes] = timePart.split(':').map(Number);
+
+      // Convert to 24-hour format
+      if (period === 'PM' && hours < 12) hours += 12;
+      if (period === 'AM' && hours === 12) hours = 0;
+
+      return {hours, minutes};
+    });
+
+    const eventStart = new Date();
+    eventStart.setHours(startTime.hours, startTime.minutes, 0, 0);
+
+    const eventEnd = new Date();
+    eventEnd.setHours(endTime.hours, endTime.minutes, 0, 0);
+
+    const currentTime = new Date();
+
+    return currentTime >= eventStart && currentTime <= eventEnd;
   };
 
   const handleNearestCafes = () => {
@@ -300,7 +330,7 @@ export default function Home({navigation}) {
 
   const filterEvents = (events, isClubMember) => {
     return events
-      ?.filter(item => isFutureDate(item.date))
+      ?.filter(item => isFutureDateOrToday(item.date, item.timing))
       ?.filter(item => {
         if (!isClubMember) {
           return item.exclusive === false;
@@ -850,23 +880,26 @@ export default function Home({navigation}) {
 
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View style={styles.cafeCardContainer}>
-                {allDeals?.map((item, index) => {
-                  return (
-                    <TouchableOpacity
-                      key={index}
-                      style={styles.dealContainer}
-                      onPress={() => {
-                        navigation.navigate('CafeDeals', {
-                          deal: item,
-                        });
-                      }}>
-                      <Image
-                        style={styles.dealImg}
-                        source={{uri: item.coverPhoto}}
-                      />
-                    </TouchableOpacity>
-                  );
-                })}
+                {allDeals
+                  ?.slice()
+                  .reverse()
+                  .map((item, index) => {
+                    return (
+                      <TouchableOpacity
+                        key={index}
+                        style={styles.dealContainer}
+                        onPress={() => {
+                          navigation.navigate('CafeDeals', {
+                            deal: item,
+                          });
+                        }}>
+                        <Image
+                          style={styles.dealImg}
+                          source={{uri: item.coverPhoto}}
+                        />
+                      </TouchableOpacity>
+                    );
+                  })}
               </View>
             </ScrollView>
 

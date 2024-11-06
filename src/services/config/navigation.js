@@ -58,6 +58,7 @@ import AvailableRewards from '../../screens/AvailableRewards';
 import Scanner from '../../screens/Scanner';
 import {selectRole, setRole} from '../../store/role';
 import Wallet from '../../screens/Wallet';
+import DealAddToCart from '../../screens/DealAddToCart';
 
 const Stack = createStackNavigator();
 export default function MainNavigator() {
@@ -139,7 +140,7 @@ export default function MainNavigator() {
           <Stack.Screen name="DealOrderSummary" component={DealOrderSummary} />
           <Stack.Screen name="DealCheckout" component={DealCheckout} />
           <Stack.Screen name="Wallet" component={Wallet} />
-
+          <Stack.Screen name="DealAddToCart" component={DealAddToCart} />
         </Stack.Navigator>
       ) : (
         <Stack.Navigator screenOptions={{headerShown: false}}>

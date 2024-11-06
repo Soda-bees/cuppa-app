@@ -85,11 +85,15 @@ export default function Checkout({navigation, route}) {
 
       const totalAmount = Number(finalTotal);
       const walletBalance = Number(user.wallet);
-      
+
       if (totalAmount > walletBalance) {
         const shortfall = totalAmount - walletBalance;
         setLoader(false);
-        setErrorMsg(`Insufficient balance: You need an additional ${shortfall.toFixed(2)} to complete this order.`);
+        setErrorMsg(
+          `Insufficient balance: You need an additional $${shortfall.toFixed(
+            2,
+          )} to complete this order.`,
+        );
         return;
       }
 

@@ -19,20 +19,25 @@ import {TextInput} from 'react-native-gesture-handler';
 import {colors, sizes} from '../../services';
 import Feather from 'react-native-vector-icons/Feather';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {addWalletBalance, createPaymentIntent, getWalletBalance, updatePassword} from '../../services/config/API';
+import {
+  addWalletBalance,
+  createPaymentIntent,
+  getWalletBalance,
+  updatePassword,
+} from '../../services/config/API';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectAuthToken} from '../../store/authSlice';
 import BottomBtnLoader from '../../components/BottomBtnLoader';
 import Modal from 'react-native-modal';
 import {usePaymentSheet} from '@stripe/stripe-react-native';
-import { selectUserData, updateWalletRedux } from '../../store/userDetails';
+import {selectUserData, updateWalletRedux} from '../../store/userDetails';
 
 export default function Wallet({navigation}) {
   const {initPaymentSheet, presentPaymentSheet} = usePaymentSheet();
 
   const token = useSelector(selectAuthToken);
-  const dispatch = useDispatch()
-  const userData= useSelector(selectUserData)
+  const dispatch = useDispatch();
+  const userData = useSelector(selectUserData);
 
   const [loader, setLoader] = useState(false);
   const [btnLoader, setBtnLoader] = useState(false);
@@ -40,7 +45,6 @@ export default function Wallet({navigation}) {
   const [errorMsg, setErrorMsg] = useState('');
   const [amount, setAmount] = useState(0);
   const [wallet, setWallet] = useState(0);
-
 
   const [showModal1, setShowModal1] = useState(false);
 
@@ -50,11 +54,10 @@ export default function Wallet({navigation}) {
     navigationn.goBack();
   };
 
-
   useFocusEffect(
     useCallback(() => {
       if (userData) {
-        setWallet(userData?.wallet);
+        setWallet(userData?.wallet?.toFixed(2));
       }
     }, [userData]),
   );
@@ -64,7 +67,7 @@ export default function Wallet({navigation}) {
       const response = await getWalletBalance(token);
       response?.data;
       if (response?.data?.success) {
-        setWallet(response?.data?.balance);
+        setWallet(response?.data?.balance?.toFixed(2));
         dispatch(updateWalletRedux(response?.data?.balance));
         setLoader(false);
       } else {
@@ -76,9 +79,9 @@ export default function Wallet({navigation}) {
     }
   };
 
-  useEffect(()=>{
-    handleGetWalletbalance()
-  },[])
+  useEffect(() => {
+    handleGetWalletbalance();
+  }, []);
 
   const handleCreatePaymentIntent = async () => {
     try {
@@ -90,7 +93,7 @@ export default function Wallet({navigation}) {
         return;
       }
       setBtnLoader(true);
-      const response = await createPaymentIntent(token,{amount})
+      const response = await createPaymentIntent(token, {amount});
       console.log(response);
       const {clientSecret} = response.data;
       console.log('hiiiii', clientSecret);
@@ -111,7 +114,7 @@ export default function Wallet({navigation}) {
           // name: userData?.name || '',
           username: userData?.name,
           email: userData?.email,
-          user_id:userData._id
+          user_id: userData._id,
           // createdAt: userData?.createdAt,
         },
       });
@@ -123,7 +126,6 @@ export default function Wallet({navigation}) {
           initError.message || 'Request failed',
           'Please try again',
         );
-
       }
 
       const {error: presentError} = await presentPaymentSheet();
@@ -132,20 +134,16 @@ export default function Wallet({navigation}) {
         setBtnLoader(false);
         setAmount('');
         Alert.alert(initError.message || 'Request failed', 'Please try again');
-
       }
       console.log('yoooooooo');
       const numberAmount = Number(amount);
       const body = {
         amount: numberAmount,
       };
-      const responseSecond = await addWalletBalance(
-        token,
-        body,
-      );
+      const responseSecond = await addWalletBalance(token, body);
       if (responseSecond?.data?.success) {
         setAmount('');
-        setWallet(responseSecond?.data?.balance);
+        setWallet(responseSecond?.data?.balance?.toFixed(2));
         dispatch(updateWalletRedux(responseSecond?.data?.balance));
         setBtnLoader(false);
         Alert.alert(
@@ -158,7 +156,6 @@ export default function Wallet({navigation}) {
         setAmount('');
         Alert.alert(responseSecond?.data?.message || 'have some error');
       }
-
     } catch (error) {
       console.error('Error processing payment:', error.message);
       Alert.alert('Payment Error', 'The payment has been cancelled');
@@ -207,60 +204,58 @@ export default function Wallet({navigation}) {
   // };
   return (
     <SafeAreaView>
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()} >
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.mainContainer}>
-
-        <View style={styles.headerContainer}>
-          <Header title={'Wallet'} />
-        </View>
-
-        <Text style={styles.subHeading}>Available Balance</Text>
-        <Text style={styles.disabledText}>
-          Funds available for in-app purchases
-        </Text>
-
-        <View style={styles.walletContainer}>
-          <Image source={images.walletImg} style={styles.walletImg} />
-          <Text style={styles.textBoldLarger}>${wallet}</Text>
-        </View>
-
-        <KeyboardAvoidingView
-          behavior="padding"
-          // keyboardVerticalOffset={}
-          >
-          <View style={styles.paymentContainer}>
-            <Text style={styles.disabledText2}>Enter Amount</Text>
-            <TextInput
-              placeholderTextColor={colors.grayBorder}
-              style={styles.inputColorIOS}
-              keyboardType="numeric"
-              placeholder="Amount"
-              value={amount}
-              onChangeText={text => setAmount(text)}
-            />
+          <View style={styles.headerContainer}>
+            <Header title={'Wallet'} />
           </View>
-          {loader ? (
-            <BottomBtnLoader />
-          ) : (
-            <TouchableOpacity
-              onPress={() => {
-                // handleSaveChanges()
-                handleCreatePaymentIntent()
-              }}>
-              <LinearGradient
-                start={{x: 0, y: 0}}
-                end={{x: 1, y: 0}}
-                colors={['#287C76', '#60B0AA']}
-                style={styles.btnContainer2}>
-                <Text style={styles.buttonText2}>Add Balance</Text>
-              </LinearGradient>
-            </TouchableOpacity>
-          )}
-        <Text style={styles.errMsg}>{errorMsg}</Text>
 
-        </KeyboardAvoidingView>
+          <Text style={styles.subHeading}>Available Balance</Text>
+          <Text style={styles.disabledText}>
+            Funds available for in-app purchases
+          </Text>
 
-        {/* <View
+          <View style={styles.walletContainer}>
+            <Image source={images.walletImg} style={styles.walletImg} />
+            <Text style={styles.textBoldLarger}>${wallet}</Text>
+          </View>
+
+          <KeyboardAvoidingView
+            behavior="padding"
+            // keyboardVerticalOffset={}
+          >
+            <View style={styles.paymentContainer}>
+              <Text style={styles.disabledText2}>Enter Amount</Text>
+              <TextInput
+                placeholderTextColor={colors.grayBorder}
+                style={styles.inputColorIOS}
+                keyboardType="numeric"
+                placeholder="Amount"
+                value={amount}
+                onChangeText={text => setAmount(text)}
+              />
+            </View>
+            {btnLoader ? (
+              <BottomBtnLoader />
+            ) : (
+              <TouchableOpacity
+                onPress={() => {
+                  // handleSaveChanges()
+                  handleCreatePaymentIntent();
+                }}>
+                <LinearGradient
+                  start={{x: 0, y: 0}}
+                  end={{x: 1, y: 0}}
+                  colors={['#287C76', '#60B0AA']}
+                  style={styles.btnContainer2}>
+                  <Text style={styles.buttonText2}>Add Balance</Text>
+                </LinearGradient>
+              </TouchableOpacity>
+            )}
+            <Text style={styles.errMsg}>{errorMsg}</Text>
+          </KeyboardAvoidingView>
+
+          {/* <View
           style={
             Platform.OS == 'android'
               ? styles.bottomBtnContainer

@@ -34,7 +34,7 @@ export default function AllDeals({navigation}) {
 
   useEffect(() => {
     handleGetAllDeals();
-  });
+  }, []);
 
   return (
     <SafeAreaView>
@@ -47,23 +47,26 @@ export default function AllDeals({navigation}) {
 
         <View>
           <ScrollView showsVerticalScrollIndicator={false}>
-            {allDeals?.map((item, index) => {
-              return (
-                <TouchableOpacity
-                  key={index}
-                  style={styles.dealContainer}
-                  onPress={() => {
-                    navigation.navigate('CafeDeals', {
-                      deal: item,
-                    });
-                  }}>
-                  <Image
-                    style={styles.dealImg}
-                    source={{uri: item.coverPhoto}}
-                  />
-                </TouchableOpacity>
-              );
-            })}
+            {allDeals
+              ?.slice()
+              .reverse()
+              .map((item, index) => {
+                return (
+                  <TouchableOpacity
+                    key={index}
+                    style={styles.dealContainer}
+                    onPress={() => {
+                      navigation.navigate('CafeDeals', {
+                        deal: item,
+                      });
+                    }}>
+                    <Image
+                      style={styles.dealImg}
+                      source={{uri: item.coverPhoto}}
+                    />
+                  </TouchableOpacity>
+                );
+              })}
           </ScrollView>
           <View style={{height: sizes.screenHeight * 0.16}}></View>
         </View>

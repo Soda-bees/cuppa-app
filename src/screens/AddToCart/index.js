@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Platform,
   ActivityIndicator,
+  KeyboardAvoidingView,
 } from 'react-native';
 import {View} from 'react-native';
 import {styles} from './style';
@@ -21,9 +22,13 @@ import {selectAuthToken} from '../../store/authSlice';
 import {addToCart} from '../../services/config/API';
 import {selectUserData, setUserData} from '../../store/userDetails';
 import Modal from 'react-native-modal';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 export default function AddToCart({navigation, route}) {
   const {cafe, item} = route.params;
+
+  console.log(item);
+
   const token = useSelector(selectAuthToken);
   const user = useSelector(selectUserData);
   const isCafeSame = user?.cart?.some(item => item?.cafeId === cafe?._id);
@@ -80,8 +85,9 @@ export default function AddToCart({navigation, route}) {
       setLoader(true);
 
       const totalExtraCharges = calculateTotalExtraCharges(selectedOptions);
-      const sizePrice = item.sizes[selectedSize].price;
-      const totalAmount = parseFloat(totalExtraCharges) + parseFloat(sizePrice);
+      const sizePrice = item.sizes[selectedSize];
+      const totalAmount =
+        parseFloat(totalExtraCharges) + parseFloat(sizePrice.price);
       const body = {
         cafeId: cafe._id,
         name: item.name,
@@ -194,20 +200,23 @@ export default function AddToCart({navigation, route}) {
     }));
   };
 
-  
   return (
     <SafeAreaView>
       {/* <ScrollView> */}
-        <View style={styles.mainContainer}>
-          <Header
-            iconType={'teal'}
-            heartIcon={'yes'}
-            favourite={false}
-            title={cafe.outletName}
-            delivery={true}
-            deliveryTime={'15 mins'}
-          />
-
+      <View style={styles.mainContainer}>
+        <Header
+          iconType={'teal'}
+          heartIcon={'yes'}
+          favourite={false}
+          title={cafe.outletName}
+          delivery={true}
+          deliveryTime={'15 mins'}
+        />
+        <KeyboardAwareScrollView
+          extraHeight={100}
+          enableOnAndroid
+          showsVerticalScrollIndicator={false}
+          extraScrollHeight={60}>
           <View style={styles.scrollViewContainer}>
             <ScrollView showsVerticalScrollIndicator={false}>
               <View style={styles.mainCoffeeRow}>
@@ -471,7 +480,8 @@ export default function AddToCart({navigation, route}) {
               />
             </ScrollView>
           </View>
-        </View>
+        </KeyboardAwareScrollView>
+      </View>
       {/* </ScrollView> */}
 
       <Modal
@@ -480,40 +490,38 @@ export default function AddToCart({navigation, route}) {
         onBackdropPress={() => setPermissionModal(false)}
         backdropOpacity={0.5}>
         <View style={styles.modalContainer}>
-        <View style={styles.modalBodyConatiner}>
-
-          <View style={styles.modalBody}>
-            <Text style={styles.modalHeading}>Add to cart?</Text>
-            <Text style={styles.modalText}>
-              The items you have in your cart are from a different cafe. By
-              adding this item to cart means your previous cart items will be
-              removed.
-            </Text>
-            <View style={styles.modalBtnContainer}>
-              <TouchableOpacity
-                style={styles.modalBtnWhite}
-                onPress={() => {
-                  setPermissionModal(false);
-                }}>
-                <Text style={styles.modalBtnWhiteText}>Cancel</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  setPermissionModal(false);
-                  handleAddToCart();
-                }}>
-                <LinearGradient
-                  start={{x: 0, y: 0}}
-                  end={{x: 1, y: 0}}
-                  colors={['#287C76', '#60B0AA']}
-                  style={styles.modalBtngreen}>
-                  <Text style={styles.modalBtnGreenText}>Add To Cart</Text>
-                </LinearGradient>
-              </TouchableOpacity>
+          <View style={styles.modalBodyConatiner}>
+            <View style={styles.modalBody}>
+              <Text style={styles.modalHeading}>Add to cart?</Text>
+              <Text style={styles.modalText}>
+                The items you have in your cart are from a different cafe. By
+                adding this item to cart means your previous cart items will be
+                removed.
+              </Text>
+              <View style={styles.modalBtnContainer}>
+                <TouchableOpacity
+                  style={styles.modalBtnWhite}
+                  onPress={() => {
+                    setPermissionModal(false);
+                  }}>
+                  <Text style={styles.modalBtnWhiteText}>Cancel</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    setPermissionModal(false);
+                    handleAddToCart();
+                  }}>
+                  <LinearGradient
+                    start={{x: 0, y: 0}}
+                    end={{x: 1, y: 0}}
+                    colors={['#287C76', '#60B0AA']}
+                    style={styles.modalBtngreen}>
+                    <Text style={styles.modalBtnGreenText}>Add To Cart</Text>
+                  </LinearGradient>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
-
         </View>
       </Modal>
     </SafeAreaView>

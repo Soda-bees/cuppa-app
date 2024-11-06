@@ -61,6 +61,7 @@ export const styles = StyleSheet.create({
     borderRadius: 14,
     marginRight: sizes.screenWidth * 0.03,
   },
+
   itemImg2: {
     height: sizes.screenWidth * 0.18,
     width: sizes.screenWidth * 0.3,

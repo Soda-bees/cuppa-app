@@ -32,11 +32,14 @@ export default function OrderSummary({navigation}) {
   const [deletedModal, setDeletedModal] = useState(false);
 
   const items = user.cart;
-  const [coupon, setCoupon] = useState({
-    name: 'NUO15',
-    type: 'New User Coupon',
-    percentage: '20',
-  });
+
+  console.log('cartttttttttttttttttttt', items);
+
+  // const [coupon, setCoupon] = useState({
+  //   name: 'NUO15',
+  //   type: 'New User Coupon',
+  //   percentage: '20',
+  // });
 
   const [prices, setPrices] = useState({
     taxes: '0',
@@ -72,14 +75,34 @@ export default function OrderSummary({navigation}) {
     return Number(discountAmount.toFixed(2));
   };
 
-  const finalTotal = Number(
-    (
-      parseFloat(prices.taxes) +
-      parseFloat(prices.delivery) -
-      parseFloat(discount(coupon.percentage, totalAmount)) +
-      totalAmount
-    ).toFixed(2),
+  const totalDiscount = items
+    .filter(item => item.discount)
+    .reduce((acc, item) => {
+      const itemDiscount = (item.totalAmount * item.discount) / 100;
+      return acc + itemDiscount;
+    }, 0)
+    .toFixed(2);
+  console.log(totalDiscount);
+
+  const finalTotal = Math.abs(
+    Number(
+      (
+        parseFloat(prices.taxes) +
+        totalDiscount +
+        parseFloat(prices.delivery) -
+        parseFloat(totalAmount)
+      ).toFixed(2),
+    ),
   );
+
+  // const finalTotal = Number(
+  //   (
+  //     parseFloat(prices.taxes) +
+  //     parseFloat(prices.delivery) -
+  //     parseFloat(discount(coupon.percentage, totalAmount)) +
+  //     totalAmount
+  //   ).toFixed(2),
+  // );
 
   const handleDeleteFromCart = async () => {
     try {
@@ -141,7 +164,11 @@ export default function OrderSummary({navigation}) {
                       />
                       <View>
                         <View style={styles.nameAndQuantity}>
-                          <Text style={styles.itemHeading2}>{item.name}</Text>
+                          <Text style={styles.itemHeading2}>
+                            {item.name.length > 22
+                              ? `${item.name.substring(0, 22)}..`
+                              : item.name}
+                          </Text>
                           <Text style={styles.itemHeading2}>
                             ({item.quantity})
                           </Text>
@@ -151,6 +178,11 @@ export default function OrderSummary({navigation}) {
                             ? `${item.description.substring(0, 30)}...`
                             : item.description}
                         </Text>
+                        {item?.discount ? (
+                          <Text style={styles.itemAddOns}>
+                            {item?.dealTitle}: {item?.discount}% 0ff
+                          </Text>
+                        ) : null}
                       </View>
                     </View>
 
@@ -168,9 +200,9 @@ export default function OrderSummary({navigation}) {
               );
             })}
 
-            <Text style={styles.heading}>Coupon</Text>
+            {/* <Text style={styles.heading}>Coupon</Text> */}
 
-            {coupon?.name && (
+            {/* {coupon?.name && (
               <View style={styles.couponRow}>
                 <View style={styles.couponRowLeft}>
                   <LinearGradient
@@ -195,7 +227,7 @@ export default function OrderSummary({navigation}) {
                   />
                 </TouchableOpacity>
               </View>
-            )}
+            )} */}
 
             <Text style={styles.heading}>Bill Details</Text>
 
@@ -210,11 +242,11 @@ export default function OrderSummary({navigation}) {
             </View>
 
             <View style={styles.priceRow}>
-              <Text style={styles.textBold}>Delivery fees</Text>
-              <Text style={styles.textBold}>${prices.delivery}</Text>
+              <Text style={styles.textBold}>Total Discount</Text>
+              <Text style={styles.textBold}>${totalDiscount}</Text>
             </View>
 
-            {coupon.name && (
+            {/* {coupon.name && (
               <View style={styles.priceRow}>
                 <View style={styles.discountRow}>
                   <Text style={styles.textBold}>Coupon </Text>
@@ -224,7 +256,7 @@ export default function OrderSummary({navigation}) {
                   $-{discount(coupon.percentage, totalAmount)}
                 </Text>
               </View>
-            )}
+            )} */}
             {/* {Platform.OS == 'android' ? (
               <View style={styles.dashedLine}></View>
             ) : (

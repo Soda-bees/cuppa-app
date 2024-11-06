@@ -327,41 +327,6 @@ export default function CafeDeals({navigation, route}) {
             <Text style={styles.ratingText}>{rating}</Text>
           </View>
         </View>
-        {totalCoffes ? (
-          <View style={styles.coffeeRow}>
-            <View style={styles.coffeeContainer}>
-              {coffees.map((item, index) => {
-                return index === coffees.length - 1 ? (
-                  // <Text key={index}>Last Item</Text>
-                  <View key={index}>
-                    <Image style={styles.coffee} source={item} />
-                    <TouchableOpacity
-                      style={styles.rewardIconContainer}
-                      onPress={() => {
-                        setRewardModal(true);
-                      }}>
-                      <Image
-                        style={styles.rewardIcon}
-                        source={images.rewardIcon}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                ) : (
-                  <Image style={styles.coffee} key={index} source={item} />
-                );
-              })}
-            </View>
-            {rewardAvailable ? (
-              <View style={styles.claimedContainer}>
-                <Text style={styles.openText}>Claimed</Text>
-              </View>
-            ) : (
-              <Text style={styles.coffeeQuantity}>
-                {orderedCoffees}/{totalCoffes}
-              </Text>
-            )}
-          </View>
-        ) : null}
 
         <View style={styles.toggleRow}>
           <View style={styles.toggleBtnContainer}>
@@ -491,7 +456,7 @@ export default function CafeDeals({navigation, route}) {
               title={'Place Order'}
               img={true}
               onPress={() => {
-                navigation.navigate('DealOrderSummary', {deal});
+                navigation.navigate('DealAddToCart', {menus, deal});
               }}
             />
           </View>
