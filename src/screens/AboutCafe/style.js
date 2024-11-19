@@ -402,6 +402,7 @@ export const styles = StyleSheet.create({
     color: colors.disabledBg2,
     fontSize: fontSize.medium,
     marginHorizontal: sizes.screenWidth * 0.02,
+    maxWidth: sizes.screenWidth * 0.7,
   },
 
   mapContainer: {
@@ -463,13 +464,13 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 
-  modalBottomBodyContainer:{
+  modalBottomBodyContainer: {
     position: 'absolute',
     bottom: 0,
     borderTopLeftRadius: sizes.screenHeight * 0.03,
     borderTopRightRadius: sizes.screenHeight * 0.03,
     backgroundColor: colors.white,
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
 
   modalBottomBody: {
@@ -576,6 +577,13 @@ export const styles = StyleSheet.create({
   reviewImg: {
     height: sizes.screenHeight * 0.1,
     width: sizes.screenHeight * 0.1,
+  },
+
+  reviewImg2: {
+    height: sizes.screenWidth * 0.11,
+    width: sizes.screenWidth * 0.11,
+    borderRadius: 100,
+    overflow: 'hidden',
   },
 
   ratingContainer: {
@@ -725,5 +733,17 @@ export const styles = StyleSheet.create({
     resizeMode: 'contain',
     height: sizes.screenHeight * 0.1,
     width: sizes.screenHeight * 0.1,
+  },
+
+  textBlack: {
+    fontFamily: 'Satoshi-Bold',
+    color: colors.black,
+    fontSize: fontSize.smallM,
+    marginTop: 6,
+  },
+
+  reviewReplyLeftRow: {
+    flexDirection: 'row',
+    gap: 6,
   },
 });

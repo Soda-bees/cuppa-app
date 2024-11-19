@@ -389,6 +389,7 @@ export const styles = StyleSheet.create({
     color: colors.disabledBg2,
     fontSize: fontSize.medium,
     marginHorizontal: sizes.screenWidth * 0.02,
+    maxWidth: sizes.screenWidth * 0.7,
   },
 
   mapContainer: {

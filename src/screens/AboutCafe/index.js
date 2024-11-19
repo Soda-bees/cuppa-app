@@ -761,6 +761,62 @@ export default function AboutCafe({navigation, route}) {
                               text={item?.comment}
                               maxWords={16}
                             />
+                            {item?.reply?.cafeName ? (
+                              <View>
+                                <Text
+                                  style={[
+                                    styles.rating,
+                                    {alignSelf: 'flex-end', marginVertical: 6},
+                                  ]}>
+                                  {(() => {
+                                    const repliedAt = item?.reply?.repliedAt;
+                                    if (repliedAt) {
+                                      const repliedDate = new Date(repliedAt);
+                                      const currentDate = new Date();
+
+                                      const isSameDay =
+                                        repliedDate.getFullYear() ===
+                                          currentDate.getFullYear() &&
+                                        repliedDate.getMonth() ===
+                                          currentDate.getMonth() &&
+                                        repliedDate.getDate() ===
+                                          currentDate.getDate();
+
+                                      if (isSameDay) {
+                                        return `Replied at ${repliedDate.toLocaleTimeString(
+                                          [],
+                                          {
+                                            hour: '2-digit',
+                                            minute: '2-digit',
+                                          },
+                                        )}`; // Show only the time
+                                      } else {
+                                        return `Replied at ${moment(
+                                          repliedAt,
+                                        ).format('DD-MM-YYYY')}`; // Show date in DD-MM-YYYY format
+                                      }
+                                    }
+                                    return '';
+                                  })()}
+                                </Text>
+                                <View>
+                                  <View style={styles.reviewReplyLeftRow}>
+                                    <Image
+                                      style={styles.reviewImg2}
+                                      source={{uri: item?.reply?.cafeProfile}}
+                                    />
+                                    <View>
+                                      <Text style={styles.textBlack}>
+                                        {item?.reply?.cafeName}
+                                      </Text>
+                                      <Text style={styles.rating}>
+                                        {item?.reply?.reply}
+                                      </Text>
+                                    </View>
+                                  </View>
+                                </View>
+                              </View>
+                            ) : null}
                           </View>
                         </View>
                         {index < cafe?.reviews?.length - 1 && (

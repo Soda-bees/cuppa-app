@@ -152,8 +152,11 @@ export default function Event({navigation, route}) {
         </View>
 
         <View style={styles.locationIconRow}>
-          <Image style={styles.locationIcon} source={images.locationIcon} />
-          <Text style={styles.locationText}>{cafe?.outletName}</Text>
+          <View style={styles.locationIconRow2}>
+            <Image style={styles.locationIcon} source={images.locationIcon} />
+            <Text style={styles.locationText}>{cafe?.outletName}</Text>
+          </View>
+          <Text style={styles.locationText}>Total slots {event?.slots}</Text>
         </View>
 
         <View style={styles.dateAndTimeRow}>
@@ -183,7 +186,13 @@ export default function Event({navigation, route}) {
                   end={{x: 1, y: 0}}
                   colors={['#287C76', '#60B0AA']}
                   style={styles.btnContainer}>
-                  <Text style={styles.buttonText}>Registered</Text>
+                  {event?.registeredUsers?.length == event?.slots ? (
+                    <Text style={styles.buttonText}>Houseful</Text>
+                  ) : (
+                    <Text style={styles.buttonText}>
+                      {event?.registeredUsers?.length}/{event.slots} Registered
+                    </Text>
+                  )}
 
                   <View style={styles.registerContainer}>
                     <Text style={styles.registerText}>Cancel Registration</Text>
@@ -198,21 +207,38 @@ export default function Event({navigation, route}) {
                     : styles.bottomBtnContainerIOS
                 }
                 onPress={() => {
-                  setShowModal6(true);
+                  if (event?.registeredUsers?.length !== event?.slots) {
+                    setShowModal6(true);
+                  }
                 }}>
                 <LinearGradient
                   start={{x: 0, y: 0}}
                   end={{x: 1, y: 0}}
                   colors={['#287C76', '#60B0AA']}
                   style={styles.btnContainer}>
-                  <Text style={styles.buttonText}>Registered</Text>
-                  <View style={styles.registerContainer}>
+                  {event?.registeredUsers?.length == event?.slots ? (
+                    <Text style={styles.buttonText}>Houseful</Text>
+                  ) : (
+                    <Text style={styles.buttonText}>
+                      {event?.registeredUsers?.length}/{event.slots} Registered
+                    </Text>
+                  )}
+                  {event?.registeredUsers?.length !== event?.slots ? (
+                    <View style={styles.registerContainer}>
+                      <Text style={styles.registerText}>Register</Text>
+                      <Image
+                        source={images.nextIconBlack}
+                        style={styles.bottomBtnNextIcon}
+                      />
+                    </View>
+                  ) : null}
+                  {/* <View style={styles.registerContainer}>
                     <Text style={styles.registerText}>Register</Text>
                     <Image
                       source={images.nextIconBlack}
                       style={styles.bottomBtnNextIcon}
                     />
-                  </View>
+                  </View> */}
                 </LinearGradient>
               </TouchableOpacity>
             )}

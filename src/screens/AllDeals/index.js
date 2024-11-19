@@ -13,28 +13,31 @@ import {selectOutlets} from '../../store/outletsSlice';
 import {selectAuthToken} from '../../store/authSlice';
 import {getAllDeals} from '../../services/config/API';
 
-export default function AllDeals({navigation}) {
+export default function AllDeals({navigation, route}) {
+  const {deals} = route.params;
   const userData = useSelector(selectUserData);
   const token = useSelector(selectAuthToken);
 
   const cafe = useSelector(selectOutlets);
-  const [allDeals, setAllDeals] = useState(null);
-  const handleGetAllDeals = async () => {
-    try {
-      const response = await getAllDeals(token);
-      console.log(
-        '==========================Deals=========================',
-        response?.data?.deals,
-      );
-      await setAllDeals(response?.data?.deals);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [allDeals, setAllDeals] = useState(deals);
+  // const handleGetAllDeals = async () => {
+  //   try {
+  //     const response = await getAllDeals(token);
+  //     console.log(
+  //       '==========================Deals=========================',
+  //       response?.data?.deals,
+  //     );
+  //     await setAllDeals(response?.data?.deals);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  useEffect(() => {
-    handleGetAllDeals();
-  }, []);
+  // useEffect(() => {
+  //   handleGetAllDeals();
+  // }, []);
+
+  console.log(allDeals, 'delasssssssssssssssssssssssssssss');
 
   return (
     <SafeAreaView>

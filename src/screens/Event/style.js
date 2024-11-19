@@ -349,6 +349,12 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: sizes.screenWidth * 0.9,
+    justifyContent: 'space-between',
+  },
+
+  locationIconRow2: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 
   dateAndTimeRow: {

@@ -132,6 +132,7 @@ export default function Home({navigation}) {
         '==========================Deals=========================',
         response?.data?.deals,
       );
+
       await setAllDeals(response?.data?.deals);
     } catch (error) {
       console.log(error);
@@ -154,9 +155,9 @@ export default function Home({navigation}) {
   useEffect(() => {
     handleGetUserDetails();
     handleGetAllCafes();
-    handleGetAllDeals();
     handleNearestCafes();
     handleGetAllEvents();
+    handleGetAllDeals();
   }, [token]);
 
   // useEffect(() => {
@@ -680,6 +681,66 @@ export default function Home({navigation}) {
     }
   };
 
+  // const handleSortDeals = allDeals => {
+  //   // Get today's date
+  //   const today = new Date();
+  //   today.setHours(0, 0, 0, 0); // Normalize to start of the day
+
+  //   // Filter out expired deals and sort valid deals
+  //   const sortedDeals = allDeals
+  //     ?.filter(deal => {
+  //       const [day, month, year] = deal.validTill.split('-').map(Number);
+  //       const validTillDate = new Date(year, month - 1, day);
+
+  //       return validTillDate >= today; // Include only today or future dates
+  //     })
+  //     .sort((a, b) => {
+  //       const [dayA, monthA, yearA] = a.validTill.split('-').map(Number);
+  //       const [dayB, monthB, yearB] = b.validTill.split('-').map(Number);
+
+  //       const dateA = new Date(yearA, monthA - 1, dayA);
+  //       const dateB = new Date(yearB, monthB - 1, dayB);
+
+  //       return dateA - dateB; // Earliest date first
+  //     });
+
+  //   return sortedDeals;
+  // };
+
+  const handleSortDeals = (allDeals, filteredCafes) => {
+    // Get today's date
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Normalize to start of the day
+
+    // Filter out expired deals and sort valid deals
+    const sortedDeals = allDeals
+      ?.filter(deal => {
+        const [day, month, year] = deal.validTill.split('-').map(Number);
+        const validTillDate = new Date(year, month - 1, day);
+
+        // Check if the deal is valid and matches any filtered cafe
+        const isMatchingCafe = filteredCafes?.some(
+          cafe => cafe._id === deal.cafeData,
+        );
+
+        return validTillDate >= today && isMatchingCafe; // Include only matching and valid deals
+      })
+      .sort((a, b) => {
+        const [dayA, monthA, yearA] = a.validTill.split('-').map(Number);
+        const [dayB, monthB, yearB] = b.validTill.split('-').map(Number);
+
+        const dateA = new Date(yearA, monthA - 1, dayA);
+        const dateB = new Date(yearB, monthB - 1, dayB);
+
+        return dateA - dateB; // Earliest date first
+      });
+
+    return sortedDeals;
+  };
+
+  const sortedDeals = handleSortDeals(allDeals, filteredCafes);
+  console.log(sortedDeals, 'delassssssssssssssssssssssssssss');
+
   return (
     <SafeAreaView>
       {allCafes && userDetails ? (
@@ -837,7 +898,9 @@ export default function Home({navigation}) {
                                 source={images.locationIcon}
                               />
                               <Text style={styles.locationText}>
-                                {item.location}
+                                {item.location.length > 20
+                                  ? `${item.location.substring(0, 20)}...`
+                                  : item.location}
                               </Text>
                             </View>
                             <View style={styles.distanceRow}>
@@ -858,50 +921,55 @@ export default function Home({navigation}) {
               </>
             ) : null}
 
-            <View style={styles.viewAllRow}>
-              <Text
-                style={
-                  Platform.OS == 'android'
-                    ? styles.viewAllHeading
-                    : styles.viewAllHeadingIOS
-                }>
-                Exclusive Deals
-              </Text>
-              <TouchableOpacity
-                style={styles.viewAllContainerMain}
-                onPress={() => {
-                  navigation.navigate('AllDeals');
-                }}>
-                <View style={styles.viewAllContainer}>
-                  <Text style={styles.viewAllText}>View all</Text>
+            {handleSortDeals(allDeals, filteredCafes)?.length > 0 ? (
+              <>
+                <View style={styles.viewAllRow}>
+                  <Text
+                    style={
+                      Platform.OS == 'android'
+                        ? styles.viewAllHeading
+                        : styles.viewAllHeadingIOS
+                    }>
+                    Exclusive Deals
+                  </Text>
+                  <TouchableOpacity
+                    style={styles.viewAllContainerMain}
+                    onPress={() => {
+                      navigation.navigate('AllDeals', {
+                        deals: sortedDeals,
+                      });
+                    }}>
+                    <View style={styles.viewAllContainer}>
+                      <Text style={styles.viewAllText}>View all</Text>
+                    </View>
+                  </TouchableOpacity>
                 </View>
-              </TouchableOpacity>
-            </View>
 
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <View style={styles.cafeCardContainer}>
-                {allDeals
-                  ?.slice()
-                  .reverse()
-                  .map((item, index) => {
-                    return (
-                      <TouchableOpacity
-                        key={index}
-                        style={styles.dealContainer}
-                        onPress={() => {
-                          navigation.navigate('CafeDeals', {
-                            deal: item,
-                          });
-                        }}>
-                        <Image
-                          style={styles.dealImg}
-                          source={{uri: item.coverPhoto}}
-                        />
-                      </TouchableOpacity>
-                    );
-                  })}
-              </View>
-            </ScrollView>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                  <View style={styles.cafeCardContainer}>
+                    {handleSortDeals(allDeals, filteredCafes)?.map(
+                      (item, index) => {
+                        return (
+                          <TouchableOpacity
+                            key={index}
+                            style={styles.dealContainer}
+                            onPress={() => {
+                              navigation.navigate('CafeDeals', {
+                                deal: item,
+                              });
+                            }}>
+                            <Image
+                              style={styles.dealImg}
+                              source={{uri: item?.coverPhoto}}
+                            />
+                          </TouchableOpacity>
+                        );
+                      },
+                    )}
+                  </View>
+                </ScrollView>
+              </>
+            ) : null}
 
             <View style={styles.viewAllRow}>
               <Text
@@ -963,7 +1031,9 @@ export default function Home({navigation}) {
                             source={images.locationIcon}
                           />
                           <Text style={styles.locationText}>
-                            {item.location}
+                            {item.location.length > 20
+                              ? `${item.location.substring(0, 20)}...`
+                              : item.location}
                           </Text>
                         </View>
                         <View style={styles.distanceRow}>
