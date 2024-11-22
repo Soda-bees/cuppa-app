@@ -156,7 +156,9 @@ export default function Event({navigation, route}) {
             <Image style={styles.locationIcon} source={images.locationIcon} />
             <Text style={styles.locationText}>{cafe?.outletName}</Text>
           </View>
-          <Text style={styles.locationText}>Total slots {event?.slots}</Text>
+          {event.exclusive ? (
+            <Text style={styles.locationText}>Total slots {event?.slots}</Text>
+          ) : null}
         </View>
 
         <View style={styles.dateAndTimeRow}>

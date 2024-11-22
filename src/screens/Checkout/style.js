@@ -196,11 +196,28 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginTop: 8,
+  },
+
+  payIconContainer: {
+    borderWidth: 2,
+    borderColor: 'transparent',
+    borderRadius: 12,
+    overflow: 'hidden',
+    backgroundColor: colors.white,
+  },
+
+  payIconContainerSelected: {
+    borderWidth: 2,
+    borderColor: colors.lightTeal,
+    borderRadius: 12,
+    overflow: 'hidden',
+    backgroundColor: colors.white,
   },
 
   payIcon: {
-    height: sizes.screenHeight * 0.13,
-    width: sizes.screenHeight * 0.13,
+    height: sizes.screenWidth * 0.24,
+    width: sizes.screenWidth * 0.24,
     resizeMode: 'contain',
   },
 
@@ -338,7 +355,7 @@ export const styles = StyleSheet.create({
     fontWeight: '500',
   },
 
-  bottmBtnIOS:{
-    marginBottom:sizes.screenHeight * 0.07
+  bottmBtnIOS: {
+    marginBottom: sizes.screenHeight * 0.07,
   },
 });

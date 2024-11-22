@@ -27,6 +27,8 @@ export default function Checkout({navigation, route}) {
   const {finalTotal, cafeId} = route.params;
   const [loader, setLoader] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [pay, setPay] = useState('apple');
+
   const token = useSelector(selectAuthToken);
   const user = useSelector(selectUserData);
   const selectedCard =
@@ -212,6 +214,10 @@ export default function Checkout({navigation, route}) {
     user?.location?.longitude,
   );
 
+  const handleSetPay = method => {
+    setPay(method);
+  };
+
   return (
     <SafeAreaView>
       <View style={styles.mainContainer}>
@@ -314,17 +320,49 @@ export default function Checkout({navigation, route}) {
               </Text>
             </TouchableOpacity>
 
-            {/* <View style={styles.upiContainer}>
+            <View style={styles.upiContainer}>
               <Text style={styles.itemHeading}>UPI</Text>
 
               <View style={styles.payIconRow}>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    handleSetPay('apple');
+                  }}
+                  style={
+                    pay === 'apple'
+                      ? styles.payIconContainerSelected
+                      : styles.payIconContainer
+                  }>
                   <Image style={styles.payIcon} source={images.applePay} />
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => {
+                    handleSetPay('google');
+                  }}
+                  style={
+                    pay === 'google'
+                      ? styles.payIconContainerSelected
+                      : styles.payIconContainer
+                  }>
+                  <Image style={styles.payIcon} source={images.googlePay} />
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => {
+                    handleSetPay('paypal');
+                  }}
+                  style={
+                    pay === 'paypal'
+                      ? styles.payIconContainerSelected
+                      : styles.payIconContainer
+                  }>
+                  <Image style={styles.payIcon} source={images.paypal} />
                 </TouchableOpacity>
               </View>
             </View>
 
-            <View style={styles.addCardRow}>
+            {/* <View style={styles.addCardRow}>
               <Text style={styles.heading}>Credit / Debit Cards</Text>
               {user?.cardDetails?.length > 0 ? (
                 <TouchableOpacity

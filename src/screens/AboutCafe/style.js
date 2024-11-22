@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
 
   aboutTextContainer: {
     width: sizes.screenWidth * 0.9,
-    height: sizes.screenHeight * 0.08,
+    maxHeight: sizes.screenHeight * 0.08,
   },
 
   aboutText: {
@@ -53,11 +53,39 @@ export const styles = StyleSheet.create({
     fontSize: fontSize.smallM,
   },
 
+  // aboutTextContainer: {
+  //   flex: 1,
+  //   padding: 16,
+  // },
+
+  catalogueContainer: {
+    marginVertical: 10,
+    flexDirection: 'row',
+    gap: 10,
+  },
+
+  catalogueItem: {
+    borderRadius: 8,
+    overflow: 'hidden',
+  },
+
+  catalogueImage: {
+    width: 150,
+    height: 150,
+    borderRadius: 8,
+  },
+
+  catalogueVideo: {
+    width: 150,
+    height: 150,
+    borderRadius: 8,
+  },
+
   locationHeading: {
     fontFamily: 'Satoshi-Bold',
     color: colors.black,
     fontSize: fontSize.h5,
-    marginBottom: sizes.screenHeight * 0.01,
+    marginVertical: sizes.screenHeight * 0.005,
     fontWeight: '500',
     width: sizes.screenWidth * 0.9,
   },

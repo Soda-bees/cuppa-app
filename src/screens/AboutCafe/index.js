@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
+import Video from 'react-native-video';
 import {View} from 'react-native';
 import {styles} from './style';
 import images from '../../services/utilities/images';
@@ -581,69 +582,104 @@ export default function AboutCafe({navigation, route}) {
         </View>
 
         {showContent === 'About' && (
-          <View>
-            <View style={styles.aboutMainContainer}>
-              <View style={styles.aboutTextContainer}>
-                <ScrollView showsVerticalScrollIndicator={false}>
-                  <TruncatedText text={cafe.description} maxWords={16} />
-                </ScrollView>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <View style={{paddingBottom: sizes.screenHeight * 0.05}}>
+              <View style={styles.aboutMainContainer}>
+                <View style={styles.aboutTextContainer}>
+                  <ScrollView showsVerticalScrollIndicator={false}>
+                    <TruncatedText text={cafe?.description} maxWords={16} />
+                  </ScrollView>
+                </View>
+                {cafe?.catalogue && cafe?.catalogue?.length > 0 ? (
+                  <>
+                    <Text style={styles.locationHeading}>Catalogue</Text>
+                    <ScrollView
+                      horizontal
+                      showsHorizontalScrollIndicator={false}>
+                      <View style={styles.catalogueContainer}>
+                        {cafe?.catalogue?.map((item, index) => (
+                          <View key={index} style={styles.catalogueItem}>
+                            {item.type === 'image' ? (
+                              <Image
+                                source={{uri: item?.url}}
+                                style={styles.catalogueImage}
+                                resizeMode="cover"
+                              />
+                            ) : (
+                              <Video
+                                source={{uri: item?.url}}
+                                style={styles.catalogueVideo}
+                                resizeMode="contain"
+                                controls
+                              />
+                            )}
+                          </View>
+                        ))}
+                      </View>
+                    </ScrollView>
+                  </>
+                ) : null}
+                <Text style={styles.locationHeading}>Location</Text>
               </View>
-              <Text style={styles.locationHeading}>Location</Text>
-            </View>
 
-            <View style={styles.mapContainer}>
-              <MapView
-                style={styles.map}
-                showsUserLocation
-                showsMyLocationButton
-                region={{
-                  latitude: cafe?.outletLocation?.latitude,
-                  longitude: cafe?.outletLocation?.longitude,
-                  latitudeDelta: 0.015,
-                  longitudeDelta: 0.0121,
-                }}>
-                <Marker
-                  coordinate={{
+              <View style={styles.mapContainer}>
+                <MapView
+                  style={styles.map}
+                  showsUserLocation
+                  showsMyLocationButton
+                  region={{
                     latitude: cafe?.outletLocation?.latitude,
                     longitude: cafe?.outletLocation?.longitude,
-                  }}
-                />
-              </MapView>
+                    latitudeDelta: 0.015,
+                    longitudeDelta: 0.0121,
+                  }}>
+                  <Marker
+                    coordinate={{
+                      latitude: cafe?.outletLocation?.latitude,
+                      longitude: cafe?.outletLocation?.longitude,
+                    }}
+                  />
+                </MapView>
+              </View>
             </View>
-          </View>
+          </ScrollView>
         )}
 
         {showContent === 'Menu' && (
           <View style={{height: sizes.screenHeight * 0.5}}>
-            <ScrollView showsVerticalScrollIndicator={false}>
-              <View
-                style={
-                  Platform.OS == 'android'
-                    ? styles.menuContainerMain
-                    : styles.menuContainerMainIOS
-                }>
-                {cafe.category.map((item, index) => {
-                  return (
-                    <TouchableOpacity
-                      key={index}
-                      style={styles.menuContainer}
-                      onPress={() => {
-                        // handleMenu(menu, index, cafe.name);
-                        // console.log(item._id);
-                        handleMenuu(item._id, item.name);
-                      }}>
-                      <Image
-                        style={styles.menuImg}
-                        source={{uri: item.categoryCover}}
-                      />
-                      <View style={styles.menuNameContainer}>
-                        <Text style={styles.menuNameText}>{item.name}</Text>
-                      </View>
-                    </TouchableOpacity>
-                  );
-                })}
-              </View>
-            </ScrollView>
+            {cafe.category.length > 0 ? (
+              <ScrollView showsVerticalScrollIndicator={false}>
+                <View
+                  style={
+                    Platform.OS == 'android'
+                      ? styles.menuContainerMain
+                      : styles.menuContainerMainIOS
+                  }>
+                  {cafe.category.map((item, index) => {
+                    return (
+                      <TouchableOpacity
+                        key={index}
+                        style={styles.menuContainer}
+                        onPress={() => {
+                          // handleMenu(menu, index, cafe.name);
+                          // console.log(item._id);
+                          handleMenuu(item._id, item.name);
+                        }}>
+                        <Image
+                          style={styles.menuImg}
+                          source={{uri: item.categoryCover}}
+                        />
+                        <View style={styles.menuNameContainer}>
+                          <Text style={styles.menuNameText}>{item.name}</Text>
+                        </View>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </View>
+              </ScrollView>
+            ) : (
+              <Text style={styles.locationHeading2}>Menu coming soon!</Text>
+            )}
           </View>
         )}
 
