@@ -58,29 +58,6 @@ export const styles = StyleSheet.create({
   //   padding: 16,
   // },
 
-  catalogueContainer: {
-    marginVertical: 10,
-    flexDirection: 'row',
-    gap: 10,
-  },
-
-  catalogueItem: {
-    borderRadius: 8,
-    overflow: 'hidden',
-  },
-
-  catalogueImage: {
-    width: 150,
-    height: 150,
-    borderRadius: 8,
-  },
-
-  catalogueVideo: {
-    width: 150,
-    height: 150,
-    borderRadius: 8,
-  },
-
   locationHeading: {
     fontFamily: 'Satoshi-Bold',
     color: colors.black,
@@ -774,4 +751,46 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 6,
   },
+
+  catalogueContainer: {
+    width: sizes.screenWidth,
+    height: sizes.screenHeight * 0.3,
+  },
+  catalogueItem: {
+    width: sizes.screenWidth,
+    height: sizes.screenHeight * 0.3,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  catalogueImage: {
+    width: sizes.screenWidth,
+    height: sizes.screenHeight * 0.3,
+  },
+  catalogueVideo: {
+    width: sizes.screenWidth,
+    height: sizes.screenHeight * 0.3,
+  },
+
+  // catalogueContainer: {
+  //   marginVertical: 10,
+  //   flexDirection: 'row',
+  //   gap: 10,
+  // },
+
+  // catalogueItem: {
+  //   borderRadius: 8,
+  //   overflow: 'hidden',
+  // },
+
+  // catalogueImage: {
+  //   width: 150,
+  //   height: 150,
+  //   borderRadius: 8,
+  // },
+
+  // catalogueVideo: {
+  //   width: 150,
+  //   height: 150,
+  //   borderRadius: 8,
+  // },
 });

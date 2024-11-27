@@ -6,6 +6,7 @@ import {
   Platform,
   Text,
   TouchableOpacity,
+  FlatList,
 } from 'react-native';
 import Video from 'react-native-video';
 import {View} from 'react-native';
@@ -365,6 +366,18 @@ export default function AboutCafe({navigation, route}) {
     handleCoffees(totalCoffes, numberOfStamps(cafe?._id));
     handleFavorite();
   }, [userData]);
+
+  const video = cafe?.catalogue?.find(catalogue => catalogue.type === 'video');
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleScroll = event => {
+    const newIndex = Math.round(
+      event.nativeEvent.contentOffset.x /
+        event.nativeEvent.layoutMeasurement.width,
+    );
+    setCurrentIndex(newIndex);
+  };
   return (
     <SafeAreaView>
       <View style={styles.mainContainer}>
@@ -415,8 +428,49 @@ export default function AboutCafe({navigation, route}) {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.cafeImageContainer}>
+        {/* <View style={styles.cafeImageContainer}>
           <Image style={styles.cafeImage} source={{uri: cafe.outletCover}} />
+        </View> */}
+
+        <View style={styles.cafeImageContainer}>
+          <View style={styles.catalogueContainer}>
+            {cafe?.catalogue?.length > 0 ? (
+              <FlatList
+                data={cafe.catalogue}
+                keyExtractor={(item, index) => index.toString()}
+                horizontal
+                pagingEnabled
+                showsHorizontalScrollIndicator={false}
+                onScroll={handleScroll}
+                renderItem={({item}) => (
+                  <View style={styles.catalogueItem}>
+                    {item.type === 'image' ? (
+                      <Image
+                        source={{uri: item?.url}}
+                        style={styles.catalogueImage}
+                        resizeMode="cover"
+                      />
+                    ) : (
+                      <Video
+                        source={{uri: item?.url}}
+                        style={styles.catalogueVideo}
+                        resizeMode="contain"
+                        repeat
+                        muted
+                        playInBackground
+                        playWhenInactive
+                      />
+                    )}
+                  </View>
+                )}
+              />
+            ) : (
+              <Image
+                style={styles.cafeImage}
+                source={{uri: cafe.outletCover}}
+              />
+            )}
+          </View>
         </View>
 
         <View style={styles.nameRow}>
@@ -590,7 +644,7 @@ export default function AboutCafe({navigation, route}) {
                     <TruncatedText text={cafe?.description} maxWords={16} />
                   </ScrollView>
                 </View>
-                {cafe?.catalogue && cafe?.catalogue?.length > 0 ? (
+                {/* {cafe?.catalogue && cafe?.catalogue?.length > 0 ? (
                   <>
                     <Text style={styles.locationHeading}>Catalogue</Text>
                     <ScrollView
@@ -611,6 +665,7 @@ export default function AboutCafe({navigation, route}) {
                                 style={styles.catalogueVideo}
                                 resizeMode="contain"
                                 controls
+                                repeat
                               />
                             )}
                           </View>
@@ -618,7 +673,7 @@ export default function AboutCafe({navigation, route}) {
                       </View>
                     </ScrollView>
                   </>
-                ) : null}
+                ) : null} */}
                 <Text style={styles.locationHeading}>Location</Text>
               </View>
 

@@ -41,6 +41,9 @@ export default function ClaimRewards({navigation}) {
   const [loader, setLoader] = useState(false);
   const [errMsg, setErrMsg] = useState('');
   const [cuppaRewardId, setCuppaRewardId] = useState('');
+  const [howToComplete, setHowToComplete] = useState('');
+  const [instructions, setInstructions] = useState('');
+
   const [availableRewards, setAvailableRewards] = useState(
     userDetails.availableAdminRewards,
   );
@@ -194,6 +197,7 @@ export default function ClaimRewards({navigation}) {
                           userId: userDetails._id,
                         });
                         setRewardId(item._id);
+                        setInstructions(item?.instructions);
                         setShowModal7(true);
                       }}>
                       <View key={index}>
@@ -246,6 +250,7 @@ export default function ClaimRewards({navigation}) {
                       onPress={() => {
                         setConfirmModal(true);
                         setRewardId(item._id);
+                        setInstructions(item?.instructions);
                       }}>
                       <Image
                         style={styles.itemImgLarge}
@@ -312,42 +317,43 @@ export default function ClaimRewards({navigation}) {
           onBackdropPress={() => setShowModal7(false)}
           backdropOpacity={0.5}>
           <TouchableOpacity
-          activeOpacity={1}
-          onPress={()=>{setShowModal7(false)}} 
-          style={styles.modalContainer}>
+            activeOpacity={1}
+            onPress={() => {
+              setShowModal7(false);
+            }}
+            style={styles.modalContainer}>
             <View style={styles.modalBottomBodyConatiner}>
-            <View style={styles.modalBottomBody}>
-              <Text style={styles.modalBottomHeading}>
-                Redeem Cuppa Rewards
-              </Text>
-              <Text style={styles.modalBottomText}>
-                Before redeeming this prize, please ensure that your address is
-                correct in your profile to guarantee a successful shipping
-                process.
-              </Text>
-              <View style={styles.modalBtnContainer}>
-                <TouchableOpacity
-                  style={styles.modalBtnWhite}
-                  onPress={() => {
-                    setShowModal7(false);
-                  }}>
-                  <Text style={styles.modalBtnWhiteText}>Cancel</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => {
-                    handleModalTest();
-                    setShowModal7(false);
-                  }}>
-                  <LinearGradient
-                    start={{x: 0, y: 0}}
-                    end={{x: 1, y: 0}}
-                    colors={['#287C76', '#60B0AA']}
-                    style={styles.modalBtngreen}>
-                    <Text style={styles.modalBtnGreenText}>Redeem</Text>
-                  </LinearGradient>
-                </TouchableOpacity>
+              <View style={styles.modalBottomBody}>
+                <Text style={styles.modalBottomHeading}>
+                  Redeem Cuppa Rewards
+                </Text>
+                <Text style={styles.modalBottomText}>
+                  Before redeeming this prize, please ensure that you are at a
+                  Cuppa registered cafe.
+                </Text>
+                <View style={styles.modalBtnContainer}>
+                  <TouchableOpacity
+                    style={styles.modalBtnWhite}
+                    onPress={() => {
+                      setShowModal7(false);
+                    }}>
+                    <Text style={styles.modalBtnWhiteText}>Cancel</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      handleModalTest();
+                      setShowModal7(false);
+                    }}>
+                    <LinearGradient
+                      start={{x: 0, y: 0}}
+                      end={{x: 1, y: 0}}
+                      colors={['#287C76', '#60B0AA']}
+                      style={styles.modalBtngreen}>
+                      <Text style={styles.modalBtnGreenText}>Redeem</Text>
+                    </LinearGradient>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
             </View>
           </TouchableOpacity>
         </Modal>
@@ -364,56 +370,58 @@ export default function ClaimRewards({navigation}) {
           }}
           backdropOpacity={0.5}>
           <TouchableOpacity
-          activeOpacity={1}
-          onPress={()=>{setConfirmModal(false)}} 
-          style={styles.modalContainer}>
+            activeOpacity={1}
+            onPress={() => {
+              setConfirmModal(false);
+            }}
+            style={styles.modalContainer}>
             <View style={styles.modalBottomBodyConatiner}>
-            <View style={styles.modalBottomBody}>
-              <Text style={styles.modalBottomHeading}>
-                Turn Cuppa Beans into your favourite rewards
-              </Text>
-              <Text style={styles.modalBottomText2}>
-                Before redeeming this prize, please ensure that your address is
-                correct in your profile to guarantee a successful shipping
-                process.
-              </Text>
-              <Text style={styles.errMsg}>{errMsg}</Text>
-              <View style={styles.modalBtnContainer}>
-                <TouchableOpacity
-                  style={styles.modalBtnWhite}
-                  onPress={() => {
-                    setConfirmModal(false);
-                    setErrMsg('');
-                  }}>
-                  <Text style={styles.modalBtnWhiteText}>Cancel</Text>
-                </TouchableOpacity>
-
-                {loader ? (
-                  <LinearGradient
-                    start={{x: 0, y: 0}}
-                    end={{x: 1, y: 0}}
-                    colors={['#287C76', '#60B0AA']}
-                    style={styles.modalBtngreen}>
-                    <ActivityIndicator size={28} color={colors.disabledBg} />
-                  </LinearGradient>
-                ) : (
+              <View style={styles.modalBottomBody}>
+                <Text style={styles.modalBottomHeading}>
+                  Turn Cuppa Beans into your favourite rewards
+                </Text>
+                <Text style={styles.modalBottomText2}>
+                  {instructions}
+                  {/* Before redeeming this prize, please ensure that your address
+                  is correct in your profile to guarantee a successful shipping
+                  process. */}
+                </Text>
+                <Text style={styles.errMsg}>{errMsg}</Text>
+                <View style={styles.modalBtnContainer}>
                   <TouchableOpacity
+                    style={styles.modalBtnWhite}
                     onPress={() => {
-                      handleAddToAvailableCuppaRewards();
+                      setConfirmModal(false);
+                      setErrMsg('');
                     }}>
+                    <Text style={styles.modalBtnWhiteText}>Cancel</Text>
+                  </TouchableOpacity>
+
+                  {loader ? (
                     <LinearGradient
                       start={{x: 0, y: 0}}
                       end={{x: 1, y: 0}}
                       colors={['#287C76', '#60B0AA']}
                       style={styles.modalBtngreen}>
-                      <Text style={styles.modalBtnGreenText}>Continue</Text>
+                      <ActivityIndicator size={28} color={colors.disabledBg} />
                     </LinearGradient>
-                  </TouchableOpacity>
-                )}
+                  ) : (
+                    <TouchableOpacity
+                      onPress={() => {
+                        handleAddToAvailableCuppaRewards();
+                      }}>
+                      <LinearGradient
+                        start={{x: 0, y: 0}}
+                        end={{x: 1, y: 0}}
+                        colors={['#287C76', '#60B0AA']}
+                        style={styles.modalBtngreen}>
+                        <Text style={styles.modalBtnGreenText}>Continue</Text>
+                      </LinearGradient>
+                    </TouchableOpacity>
+                  )}
+                </View>
               </View>
             </View>
-            </View>
-
           </TouchableOpacity>
         </Modal>
 
