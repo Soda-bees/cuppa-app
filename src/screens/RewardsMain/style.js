@@ -92,7 +92,7 @@ export const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: fontSize.h6,
     color: colors.white,
-    // width: sizes.screenWidth * 0.5,
+    width: sizes.screenWidth * 0.5,
   },
 
   shareTextWhite2: {
@@ -378,13 +378,13 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 
-  modalBottomBodyContainer:{
+  modalBottomBodyContainer: {
     backgroundColor: colors.white,
     position: 'absolute',
     bottom: 0,
     borderTopLeftRadius: sizes.screenHeight * 0.03,
     borderTopRightRadius: sizes.screenHeight * 0.03,
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
 
   modalBottomBody: {
@@ -393,7 +393,6 @@ export const styles = StyleSheet.create({
     paddingTop: sizes.screenHeight * 0.03,
     paddingBottom: sizes.screenHeight * 0.04,
     backgroundColor: colors.white,
-
   },
 
   modalBottomHeading: {

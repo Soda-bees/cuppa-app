@@ -209,8 +209,6 @@ export default function AddToCart({navigation, route}) {
           heartIcon={'yes'}
           favourite={false}
           title={cafe.outletName}
-          delivery={true}
-          deliveryTime={'15 mins'}
         />
         <KeyboardAwareScrollView
           extraHeight={100}

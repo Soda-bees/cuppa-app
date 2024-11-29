@@ -299,7 +299,7 @@ export default function MapVieww({navigation, route}) {
         <View style={styles.headerContainer}>
           <Header title={''} />
         </View>
-        {region ? (
+        {region && cafe.length > 0 ? (
           <View
             style={
               Platform.OS == 'android'

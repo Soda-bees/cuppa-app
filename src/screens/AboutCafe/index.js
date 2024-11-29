@@ -454,7 +454,7 @@ export default function AboutCafe({navigation, route}) {
                       <Video
                         source={{uri: item?.url}}
                         style={styles.catalogueVideo}
-                        resizeMode="contain"
+                        resizeMode="stretch"
                         repeat
                         muted
                         playInBackground
@@ -482,11 +482,21 @@ export default function AboutCafe({navigation, route}) {
 
         <View style={styles.locationIconRow}>
           <View style={styles.locationIconRowLeft}>
-            <Image style={styles.locationIcon} source={images.locationIcon} />
-            <Text style={styles.locationText}>{cafe.location}</Text>
-            <Image style={styles.starIcon} source={images.starIcon} />
-            <Text style={styles.ratingText}>{rating}</Text>
+            <View style={styles.locationRowLeft}>
+              <Image style={styles.locationIcon} source={images.locationIcon} />
+              <Text style={styles.locationText}>{cafe.location}</Text>
+            </View>
+
+            <View style={styles.locationRowLeft}>
+              <Image style={styles.starIcon} source={images.starIcon} />
+              <Text style={styles.ratingText}>{rating}</Text>
+            </View>
           </View>
+        </View>
+
+        <View style={styles.dateAndTimeRow}>
+          <Image style={styles.icon} source={images.clockIcon} />
+          <Text style={styles.dateText}>{cafe?.openHours}</Text>
         </View>
         {totalCoffes ? (
           <View style={styles.coffeeRow}>
@@ -701,7 +711,11 @@ export default function AboutCafe({navigation, route}) {
         )}
 
         {showContent === 'Menu' && (
-          <View style={{height: sizes.screenHeight * 0.5}}>
+          <View
+            style={{
+              height: sizes.screenHeight * 0.5,
+              paddingBottom: sizes.screenHeight * 0.015,
+            }}>
             {cafe.category.length > 0 ? (
               <ScrollView showsVerticalScrollIndicator={false}>
                 <View
@@ -739,7 +753,11 @@ export default function AboutCafe({navigation, route}) {
         )}
 
         {showContent === 'Events' && (
-          <View style={{maxHeight: sizes.screenHeight * 0.5}}>
+          <View
+            style={{
+              maxHeight: sizes.screenHeight * 0.5,
+              paddingBottom: sizes.screenHeight * 0.015,
+            }}>
             {filterEvents(cafe.events, userData.clubMember)?.length > 0 ? (
               <>
                 <Text style={styles.locationHeading}>Upcoming Events</Text>
@@ -802,7 +820,11 @@ export default function AboutCafe({navigation, route}) {
         )}
 
         {showContent === 'Reviews' && (
-          <View style={{height: sizes.screenHeight * 0.5}}>
+          <View
+            style={{
+              height: sizes.screenHeight * 0.5,
+              paddingBottom: sizes.screenHeight * 0.015,
+            }}>
             <Text style={styles.locationHeading}>Reviews</Text>
 
             {reviews.length > 0 ? (

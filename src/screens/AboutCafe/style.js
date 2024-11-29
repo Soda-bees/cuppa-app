@@ -286,7 +286,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
-    marginVertical: sizes.screenHeight * 0.02,
+    marginVertical: 8,
     width: sizes.screenWidth * 0.9,
     alignSelf: 'center',
   },
@@ -366,7 +366,6 @@ export const styles = StyleSheet.create({
     width: 16,
     marginLeft: sizes.screenWidth * 0.04,
     marginRight: sizes.screenWidth * 0.01,
-    top: 2,
   },
 
   ratingText: {
@@ -386,7 +385,6 @@ export const styles = StyleSheet.create({
   locationIconRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
     width: sizes.screenWidth * 0.9,
   },
 
@@ -394,12 +392,19 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    width: sizes.screenWidth * 0.9,
+  },
+
+  locationRowLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 
   locationIcon: {
     resizeMode: 'contain',
-    height: 22,
-    width: 22,
+    height: 20,
+    width: 20,
   },
 
   locationText: {
@@ -769,6 +774,28 @@ export const styles = StyleSheet.create({
   catalogueVideo: {
     width: sizes.screenWidth,
     height: sizes.screenHeight * 0.3,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  dateAndTimeRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: sizes.screenWidth * 0.9,
+    marginTop: 6,
+  },
+
+  icon: {
+    resizeMode: 'contain',
+    height: 20,
+    width: 20,
+    marginRight: 8,
+  },
+
+  dateText: {
+    fontFamily: 'Satoshi-Medium',
+    color: colors.disabledBg2,
+    fontSize: fontSize.medium,
   },
 
   // catalogueContainer: {

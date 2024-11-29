@@ -61,13 +61,13 @@ export default function Event({navigation, route}) {
     try {
       setLoader(true);
       const body = {
-        eventId: event._id,
+        eventId: event?._id,
       };
       const response = await joinExclusiveEvent(body, token);
 
       if (response.data.success) {
-        console.log(response.data.selectedEvent);
-        dispatch(updateEventRedux(response.data));
+        console.log(response?.data?.selectedEvent);
+        dispatch(updateEventRedux(response?.data));
         setErrorMsg('');
         setLoader(false);
         setShowModal6(false);
@@ -75,7 +75,7 @@ export default function Event({navigation, route}) {
           setShowModal2(true);
         }, 500);
       } else {
-        console.log(response.data.message);
+        console.log(response?.data?.message);
         setErrorMsg('');
         setLoader(false);
       }
@@ -94,15 +94,15 @@ export default function Event({navigation, route}) {
       };
       const response = await cancelRegistration(body, token);
 
-      if (response.data.success) {
-        console.log(response.data.selectedEvent);
+      if (response?.data?.success) {
+        console.log(response?.data?.selectedEvent);
         dispatch(updateEventRedux(response.data));
         setErrorMsg('');
         setLoader(false);
         setCancelModal(false);
       } else {
-        console.log(response.data.message);
-        setErrorMsg(response.data.message);
+        console.log(response?.data?.message);
+        setErrorMsg(response?.data?.message);
         setLoader(false);
         setCancelModal(false);
       }
@@ -114,7 +114,7 @@ export default function Event({navigation, route}) {
   };
 
   const handleIsRegistered = () => {
-    const isUserRegistered = event?.registeredUsers?.includes(user._id);
+    const isUserRegistered = event?.registeredUsers?.includes(user?._id);
     setRegister(isUserRegistered);
   };
 
@@ -156,7 +156,7 @@ export default function Event({navigation, route}) {
             <Image style={styles.locationIcon} source={images.locationIcon} />
             <Text style={styles.locationText}>{cafe?.outletName}</Text>
           </View>
-          {event.exclusive ? (
+          {event?.exclusive ? (
             <Text style={styles.locationText}>Total slots {event?.slots}</Text>
           ) : null}
         </View>

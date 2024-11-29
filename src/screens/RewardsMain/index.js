@@ -176,9 +176,9 @@ export default function RewardsMain({navigation}) {
                     <Text style={styles.shareTextWhite}>
                       Share Cuppa With Friends & Family
                     </Text>
-                    {/* <TouchableOpacity style={styles.shareBtn}>
+                    <TouchableOpacity style={styles.shareBtn}>
                       <Text style={styles.shareBtnText}>Share</Text>
-                    </TouchableOpacity> */}
+                    </TouchableOpacity>
                   </View>
                 </View>
 
@@ -507,53 +507,55 @@ export default function RewardsMain({navigation}) {
             activeOpacity={1}
             onPress={() => setUnsubModal(false)}>
             <View style={styles.modalBottomBodyContainer}>
-            <View style={styles.modalBottomBody}>
-              <View style={styles.toggleRow2}>
-                <Text style={styles.modalBottomHeading2}>
-                  Are you sure you want to cancel Cuppa Club Membership?
-                </Text>
-                <TouchableOpacity
-                  onPress={() => {
-                    setUnsub(!unsub);
-                  }}>
-                  {unsub ? (
-                    <Image
-                      style={styles.toggleIcon}
-                      source={images.toggleTrueIcon}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.toggleIcon}
-                      source={images.toggleFalseIcon}
-                    />
-                  )}
-                </TouchableOpacity>
-              </View>
-              <Text style={styles.disabledText}>
-                Your access to all premium features of Cuppa Club Membership
-                will end
-              </Text>
-
-              {loader ? (
-                <BottomBtnLoader title={'Yes, Cancel'} />
-              ) : unsub ? (
-                <BottomBtnUser
-                  title={'Yes, Cancel'}
-                  img={true}
-                  onPress={handleCancelMembership}
-                />
-              ) : (
-                <View style={styles.btnContainer}>
-                  <Text style={styles.buttonText}>Yes, Cancel</Text>
-                  <Image
-                    source={
-                      unsub ? images.bottomBtnNextIcon : images.disabledBtnIcon
-                    }
-                    style={styles.bottomBtnNextIcon}
-                  />
+              <View style={styles.modalBottomBody}>
+                <View style={styles.toggleRow2}>
+                  <Text style={styles.modalBottomHeading2}>
+                    Are you sure you want to cancel Cuppa Club Membership?
+                  </Text>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setUnsub(!unsub);
+                    }}>
+                    {unsub ? (
+                      <Image
+                        style={styles.toggleIcon}
+                        source={images.toggleTrueIcon}
+                      />
+                    ) : (
+                      <Image
+                        style={styles.toggleIcon}
+                        source={images.toggleFalseIcon}
+                      />
+                    )}
+                  </TouchableOpacity>
                 </View>
-              )}
-            </View>
+                <Text style={styles.disabledText}>
+                  Your access to all premium features of Cuppa Club Membership
+                  will end
+                </Text>
+
+                {loader ? (
+                  <BottomBtnLoader title={'Yes, Cancel'} />
+                ) : unsub ? (
+                  <BottomBtnUser
+                    title={'Yes, Cancel'}
+                    img={true}
+                    onPress={handleCancelMembership}
+                  />
+                ) : (
+                  <View style={styles.btnContainer}>
+                    <Text style={styles.buttonText}>Yes, Cancel</Text>
+                    <Image
+                      source={
+                        unsub
+                          ? images.bottomBtnNextIcon
+                          : images.disabledBtnIcon
+                      }
+                      style={styles.bottomBtnNextIcon}
+                    />
+                  </View>
+                )}
+              </View>
             </View>
           </TouchableOpacity>
         </Modal>
@@ -580,7 +582,8 @@ export default function RewardsMain({navigation}) {
     </SafeAreaView>
   );
 }
-                      {/* <ProgressCircle
+{
+  /* <ProgressCircle
                         percent={50}
                         radius={30}
                         borderWidth={8}
@@ -588,4 +591,5 @@ export default function RewardsMain({navigation}) {
                         shadowColor="#60B0AA22"
                         bgColor="#fff">
                         <Text style={styles.ProgressCircleText}>{'50%'}</Text>
-                      </ProgressCircle> */}
+                      </ProgressCircle> */
+}
