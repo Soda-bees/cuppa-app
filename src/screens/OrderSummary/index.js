@@ -303,6 +303,7 @@ export default function OrderSummary({navigation}) {
         onBackdropPress={() => setDeleteModal(false)}
         backdropOpacity={0.5}>
         <View style={styles.modalContainer}>
+          <View style={styles.modalBodyContainer}>
           <View style={styles.modalBody}>
             <Text style={styles.modalHeading}>Are you sure?</Text>
             <Text style={styles.modalText}>
@@ -336,6 +337,7 @@ export default function OrderSummary({navigation}) {
                 </TouchableOpacity>
               )}
             </View>
+          </View>
           </View>
         </View>
       </Modal>

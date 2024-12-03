@@ -150,6 +150,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'Satoshi-Medium',
     fontSize: fontSize.smallM,
     color: colors.black,
+    padding:10
   },
 
   cartRow: {

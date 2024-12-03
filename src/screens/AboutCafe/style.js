@@ -217,7 +217,7 @@ export const styles = StyleSheet.create({
   upcomingEventsContainerMain: {
     borderRadius: sizes.screenHeight * 0.02,
     backgroundColor: colors.bgLight,
-    marginBottom: sizes.screenHeight * 0.05,
+    marginBottom: sizes.screenHeight * 0.15,
   },
 
   upcomingEventsContainer: {

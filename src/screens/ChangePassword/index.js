@@ -1,6 +1,13 @@
 import React, {useRef, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Image, Text, TouchableOpacity, Platform} from 'react-native';
+import {
+  Image,
+  Text,
+  TouchableOpacity,
+  Platform,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import {View} from 'react-native';
 import {styles} from './style';
 import images from '../../services/utilities/images';
@@ -79,105 +86,121 @@ export default function ChangePassword({navigation}) {
   };
   return (
     <SafeAreaView>
-      <View style={styles.mainContainer}>
-        <View style={styles.headerContainer}>
-          <Header title={'Change Password'} />
-        </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.mainContainer}>
+          <View style={styles.headerContainer}>
+            <Header title={'Change Password'} />
+          </View>
 
-        <Text style={styles.subHeading}>Create New Password</Text>
+          <Text style={styles.subHeading}>Create New Password</Text>
 
-        <View style={styles.inputView}>
-          <Text style={styles.inputTitle}>Current Password</Text>
-          <TextInput
-            placeholder={'Enter Current Password'}
-            style={Platform.OS == 'android' ? styles.inputField : styles.inputFieldIOS}
-            placeholderTextColor={colors.disabledBg3}
-            onChangeText={text => setPassword(text)}
-            value={password}
-            secureTextEntry={hidePass}
-          />
-
-          <TouchableOpacity
-            style={styles.feather}
-            onPress={() => setHidePass(!hidePass)}>
-            <Feather
-              name={!hidePass ? 'eye' : 'eye-off'}
-              color={colors.teal}
-              size={24}
+          <View style={styles.inputView}>
+            <Text style={styles.inputTitle}>Current Password</Text>
+            <TextInput
+              placeholder={'Enter Current Password'}
+              style={
+                Platform.OS == 'android'
+                  ? styles.inputField
+                  : styles.inputFieldIOS
+              }
+              placeholderTextColor={colors.disabledBg3}
+              onChangeText={text => setPassword(text)}
+              value={password}
+              secureTextEntry={hidePass}
             />
-          </TouchableOpacity>
-        </View>
 
-        <View style={styles.inputView}>
-          <Text style={styles.inputTitle}>New Password</Text>
-          <TextInput
-            placeholder={'Enter New Password'}
-            style={Platform.OS == 'android' ? styles.inputField : styles.inputFieldIOS}
-            placeholderTextColor={colors.disabledBg3}
-            onChangeText={text => setNewPass(text)}
-            value={newPass}
-            secureTextEntry={hideNewPass}
-          />
-
-          <TouchableOpacity
-            style={styles.feather}
-            onPress={() => setHideNewPass(!hideNewPass)}>
-            <Feather
-              name={!hideNewPass ? 'eye' : 'eye-off'}
-              color={colors.teal}
-              size={24}
-            />
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.inputView}>
-          <Text style={styles.inputTitle}>Enter Confirm Password</Text>
-          <TextInput
-            placeholder={'Confirm Password'}
-            style={Platform.OS == 'android' ? styles.inputField : styles.inputFieldIOS}
-            placeholderTextColor={colors.disabledBg3}
-            onChangeText={text => setConfirmPass(text)}
-            value={confirmPass}
-            secureTextEntry={hideConfirmPass}
-          />
-
-          <TouchableOpacity
-            style={styles.feather}
-            onPress={() => setHideConfirmPass(!hideConfirmPass)}>
-            <Feather
-              name={!hideConfirmPass ? 'eye' : 'eye-off'}
-              color={colors.teal}
-              size={24}
-            />
-          </TouchableOpacity>
-        </View>
-
-        <Text style={styles.errMsg}>{errorMsg}</Text>
-        <View
-          style={
-            Platform.OS == 'android'
-              ? styles.bottomBtnContainer
-              : styles.bottomBtnContainerIOS
-          }>
-          <TouchableOpacity style={styles.btnContainer} onPress={handleCancel}>
-            <Text style={styles.buttonText}>Cancel</Text>
-          </TouchableOpacity>
-
-          {loader ? (
-            <BottomBtnLoader />
-          ) : (
-            <TouchableOpacity onPress={handleSaveChanges}>
-              <LinearGradient
-                start={{x: 0, y: 0}}
-                end={{x: 1, y: 0}}
-                colors={['#287C76', '#60B0AA']}
-                style={styles.btnContainer2}>
-                <Text style={styles.buttonText2}>Save Changes</Text>
-              </LinearGradient>
+            <TouchableOpacity
+              style={styles.feather}
+              onPress={() => setHidePass(!hidePass)}>
+              <Feather
+                name={!hidePass ? 'eye' : 'eye-off'}
+                color={colors.teal}
+                size={24}
+              />
             </TouchableOpacity>
-          )}
+          </View>
+
+          <View style={styles.inputView}>
+            <Text style={styles.inputTitle}>New Password</Text>
+            <TextInput
+              placeholder={'Enter New Password'}
+              style={
+                Platform.OS == 'android'
+                  ? styles.inputField
+                  : styles.inputFieldIOS
+              }
+              placeholderTextColor={colors.disabledBg3}
+              onChangeText={text => setNewPass(text)}
+              value={newPass}
+              secureTextEntry={hideNewPass}
+            />
+
+            <TouchableOpacity
+              style={styles.feather}
+              onPress={() => setHideNewPass(!hideNewPass)}>
+              <Feather
+                name={!hideNewPass ? 'eye' : 'eye-off'}
+                color={colors.teal}
+                size={24}
+              />
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.inputView}>
+            <Text style={styles.inputTitle}>Enter Confirm Password</Text>
+            <TextInput
+              placeholder={'Confirm Password'}
+              style={
+                Platform.OS == 'android'
+                  ? styles.inputField
+                  : styles.inputFieldIOS
+              }
+              placeholderTextColor={colors.disabledBg3}
+              onChangeText={text => setConfirmPass(text)}
+              value={confirmPass}
+              secureTextEntry={hideConfirmPass}
+            />
+
+            <TouchableOpacity
+              style={styles.feather}
+              onPress={() => setHideConfirmPass(!hideConfirmPass)}>
+              <Feather
+                name={!hideConfirmPass ? 'eye' : 'eye-off'}
+                color={colors.teal}
+                size={24}
+              />
+            </TouchableOpacity>
+          </View>
+
+          <Text style={styles.errMsg}>{errorMsg}</Text>
+          <View
+            style={
+              Platform.OS == 'android'
+                ? styles.bottomBtnContainer
+                : styles.bottomBtnContainerIOS
+            }>
+            <TouchableOpacity
+              style={styles.btnContainer}
+              onPress={handleCancel}>
+              <Text style={styles.buttonText}>Cancel</Text>
+            </TouchableOpacity>
+
+            {loader ? (
+              <BottomBtnLoader />
+            ) : (
+              <TouchableOpacity onPress={handleSaveChanges}>
+                <LinearGradient
+                  start={{x: 0, y: 0}}
+                  end={{x: 1, y: 0}}
+                  colors={['#287C76', '#60B0AA']}
+                  style={styles.btnContainer2}>
+                  <Text style={styles.buttonText2}>Save Changes</Text>
+                </LinearGradient>
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
       <Modal isVisible={showModal1} backdropOpacity={0.5}>
         <View style={styles.modalBody}>
           <Image source={images.reviewSuccess} style={styles.modalCup} />

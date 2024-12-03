@@ -165,8 +165,8 @@ export default function AllCafes({navigation, route}) {
                   </TouchableOpacity>
                 );
               })}
+            <View style={{height: sizes.screenHeight * 0.23}}></View>
           </ScrollView>
-          <View style={{height: sizes.screenHeight * 0.16}}></View>
         </View>
       </View>
     </SafeAreaView>

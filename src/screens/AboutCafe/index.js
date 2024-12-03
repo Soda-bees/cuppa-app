@@ -30,6 +30,7 @@ import BottomBtnUser from '../../components/BottomBtnUser';
 import BottomBtnLoader from '../../components/BottomBtnLoader';
 import StarRating from 'react-native-star-rating-widget';
 import TruncatedTextTwo from '../../components/TruncatedTextTwo';
+import moment from 'moment';
 
 export default function AboutCafe({navigation, route}) {
   const {cafeId} = route.params;
@@ -902,11 +903,11 @@ export default function AboutCafe({navigation, route}) {
                                             hour: '2-digit',
                                             minute: '2-digit',
                                           },
-                                        )}`; // Show only the time
+                                        )}`;
                                       } else {
                                         return `Replied at ${moment(
                                           repliedAt,
-                                        ).format('DD-MM-YYYY')}`; // Show date in DD-MM-YYYY format
+                                        ).format('DD-MM-YYYY')}`;
                                       }
                                     }
                                     return '';
