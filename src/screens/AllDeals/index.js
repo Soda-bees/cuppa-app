@@ -50,28 +50,30 @@ export default function AllDeals({navigation, route}) {
 
         <View>
           <ScrollView showsVerticalScrollIndicator={false}>
-            {allDeals
-              ?.slice()
-              .reverse()
-              .map((item, index) => {
-                return (
-                  <TouchableOpacity
-                    key={index}
-                    style={styles.dealContainer}
-                    onPress={() => {
-                      navigation.navigate('CafeDeals', {
-                        deal: item,
-                      });
-                    }}>
-                    <Image
-                      style={styles.dealImg}
-                      source={{uri: item.coverPhoto}}
-                    />
-                  </TouchableOpacity>
-                );
-              })}
+            <View style={styles.dealContainerFlex}>
+              {allDeals
+                ?.slice()
+                .reverse()
+                .map((item, index) => {
+                  return (
+                    <TouchableOpacity
+                      key={index}
+                      style={styles.dealContainer}
+                      onPress={() => {
+                        navigation.navigate('CafeDeals', {
+                          deal: item,
+                        });
+                      }}>
+                      <Image
+                        style={styles.dealImg}
+                        source={{uri: item.coverPhoto}}
+                      />
+                    </TouchableOpacity>
+                  );
+                })}
+            </View>
           </ScrollView>
-          <View style={{height: sizes.screenHeight * 0.16}}></View>
+          {/* <View style={{height: sizes.screenHeight * 0.15}}></View> */}
         </View>
       </View>
     </SafeAreaView>

@@ -946,7 +946,7 @@ export default function Home({navigation}) {
                 </View>
 
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                  <View style={styles.cafeCardContainer}>
+                  <View style={styles.cafeCardContainer2}>
                     {handleSortDeals(allDeals, filteredCafes)?.map(
                       (item, index) => {
                         return (

@@ -199,14 +199,20 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
+  dealContainerFlex: {
+    flexDirection: 'column',
+    gap: 8,
+    marginBottom: sizes.screenHeight * 0.17,
+  },
+
   dealContainer: {
-    borderRadius: 16,
+    borderRadius: 12,
+    overflow: 'hidden',
   },
 
   dealImg: {
-    resizeMode: 'contain',
-    height: sizes.screenHeight * 0.18,
+    // resizeMode: 'contain',
+    height: sizes.screenHeight * 0.17,
     width: sizes.screenWidth * 0.9,
-    marginBottom: 6,
   },
 });

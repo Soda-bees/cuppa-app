@@ -160,6 +160,12 @@ export const styles = StyleSheet.create({
     paddingHorizontal: sizes.screenWidth * 0.04,
   },
 
+  cafeCardContainer2: {
+    flexDirection: 'row',
+    paddingHorizontal: sizes.screenWidth * 0.05,
+    gap: 10,
+  },
+
   cafeCard: {
     padding: 10,
     borderRadius: 16,
@@ -246,13 +252,13 @@ export const styles = StyleSheet.create({
 
   dealContainer: {
     borderRadius: 16,
+    overflow: 'hidden',
   },
 
   dealImg: {
-    resizeMode: 'contain',
-    height: sizes.screenHeight * 0.18,
-    width: sizes.screenWidth,
-    marginHorizontal: 4,
+    // resizeMode: 'contain',
+    height: sizes.screenHeight * 0.17,
+    width: sizes.screenWidth * 0.9,
   },
 
   mapContainer: {
